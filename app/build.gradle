@@ -31,9 +31,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    // Firebase BOM
-    implementation platform('com.google.firebase:firebase-bom:25.12.0')
-    // F.Analytics
-    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation (platform('com.google.firebase:firebase-bom:25.12.0')){
+        because "The Firebase Android BoM (Bill of Materials) enables you to manage all your Firebase library versions by specifying only one version — the BoM's version."
+    }
+    implementation ('com.google.firebase:firebase-analytics'){
+        because "we need Firebase Analytics dependency for Analytics purpose."
+    }
 
 }
