@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createUserWithEmailAndPassword (String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        if (!validateForm()){
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -75,9 +80,22 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
-        name = findViewById(R.id.editTextUsername);
         mEmail = email.getText().toString();
         mPassword = password.getText().toString();
+
+        if (TextUtils.isEmpty(mEmail)){
+            email.setError("Required field");
+            valid = false;
+        }else {
+            email.setError(null);
+        }
+
+        if (TextUtils.isEmpty(mPassword)){
+            password.setError("Required field");
+            valid = false;
+        }else {
+            password.setError(null);
+        }
 
         return valid;
     }
