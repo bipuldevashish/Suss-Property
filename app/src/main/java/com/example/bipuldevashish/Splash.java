@@ -40,48 +40,51 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
 
-                // if User not Fetched
-                if (firebaseUser == null) {
-                    Intent i = new Intent(Splash.this, Login.class);
-                    startActivity(i);
-                    finish();
+                startActivity(new Intent(Splash.this,Login.class));
 
-                }
-                // if Fetched
-                else {
-
-                    // Get User Id
-                    userId = firebaseUser.getUid();
-                    // Referencing the Database
-
-                    DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
-
-                    // Refered the database with UID as its root : UID - exists ? Yes - Go To Home : No - Go To Register
-                    DatabaseReference userCheck = rootref.child("Users").child(userId);
-
-                    ValueEventListener valueEventListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                // Exists : Got to Home
-                                startActivity(new Intent(Splash.this, Home.class));
-                                finish();
-                            } else {
-
-                                // Doesn't Exists : Go To Register
-                                startActivity(new Intent(Splash.this, Register.class));
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    };
-                    userCheck.addListenerForSingleValueEvent(valueEventListener);
-                }
-
-            }
+                // -------------------------WILL USE LATER ----------------DO NOT DELETE OR CHANGE --------//
+//                // if User not Fetched
+//                if (firebaseUser == null) {
+//                    Intent i = new Intent(Splash.this, Login.class);
+//                    startActivity(i);
+//                    finish();
+//
+//                }
+//                // if Fetched
+//                else {
+//
+//                    // Get User Id
+//                    userId = firebaseUser.getUid();
+//                    // Referencing the Database
+//
+//                    DatabaseReference rootref = FirebaseDatabase.getInstance().getReference();
+//
+//                    // Refered the database with UID as its root : UID - exists ? Yes - Go To Home : No - Go To Register
+//                    DatabaseReference userCheck = rootref.child("Users").child(userId);
+//
+//                    ValueEventListener valueEventListener = new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            if(snapshot.exists()) {
+//                                // Exists : Got to Home
+//                                startActivity(new Intent(Splash.this, Home.class));
+//                                finish();
+//                            } else {
+//
+//                                // Doesn't Exists : Go To Register
+//                                startActivity(new Intent(Splash.this, Register.class));
+//                                finish();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                        }
+//                    };
+//                    userCheck.addListenerForSingleValueEvent(valueEventListener);
+//                }
+//
+           }
 
         }, SPLASH_SCREEN_TIME_OUT);
 

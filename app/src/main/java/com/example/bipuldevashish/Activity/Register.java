@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,6 @@ public class Register extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     DatabaseReference userDb;
-
     ProgressDialog progressDialog;
 
 
@@ -41,8 +41,6 @@ public class Register extends AppCompatActivity {
 
         // Auth Init
         firebaseAuth = FirebaseAuth.getInstance();
-        // Database Init
-        userDb = FirebaseDatabase.getInstance().getReference();
 
         //ProgressDialog
         progressDialog = new ProgressDialog(this);
@@ -116,7 +114,7 @@ public class Register extends AppCompatActivity {
     private void authenticate(final String user_name, final String user_email, final String user_mobile, final String user_password)
     {
 
-        firebaseAuth.createUserWithEmailAndPassword(user_mobile+"@trade.com",user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(user_mobile+"@tradee.com",user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task)
             {
@@ -126,7 +124,7 @@ public class Register extends AppCompatActivity {
                     String userId = currentUser.getUid();
 
                     //Initialising root base for user details
-                    userDb = userDb.child("Users").child(userId);
+                    userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
                     HashMap<String,String> userNode = new HashMap<>();
 
@@ -134,11 +132,6 @@ public class Register extends AppCompatActivity {
                     userNode.put("Email",user_email);
                     userNode.put("Mobile",user_mobile);
                     userNode.put("Password",user_password);
-                    userNode.put("ProfilePicture","https://www.nicepng.com/png/detail/780-7805650_generic-user-image-male-man-cartoon-no-eyes.png");
-                    userNode.put("State","");
-                    userNode.put("followers","0");
-                    userNode.put("following","0");
-                    userNode.put("posts","0");
 
 
                     userDb.setValue(userNode).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -154,7 +147,9 @@ public class Register extends AppCompatActivity {
 
                             else
                             {
+                                Log.d("RegisterActivity","Couldnt save user details");
                                 Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressDialog.hide();
                             }
                         }
                     });

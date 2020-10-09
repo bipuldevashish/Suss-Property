@@ -18,8 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:id="@+id/goBack"
-            android:src=""/>
+            android:id="@+id/goBack" />
 
         <TextView
             android:layout_width="match_parent"
@@ -38,16 +37,17 @@
         android:textColor="#000000"
         android:gravity="center"
         android:layout_below="@+id/action_bar"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/loginText"
         android:textSize="28sp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/registerScroll"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="14dp"
+
         android:layout_below="@id/loginText">
 
         <LinearLayout
@@ -182,29 +182,26 @@
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:id="@+id/registerBtn"
-                android:minHeight="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp"
-                android:textColor="#fff"
-                android:background="#9C27B0" />
+
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <TextView
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="App Name"
-        android:gravity="center"
+        android:text="Register"
+        android:id="@+id/registerBtn"
+        android:minHeight="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="18dp"
+        android:textColor="#fff"
+        android:background="#9C27B0"
         android:layout_alignParentBottom="true"/>
+
 
 </RelativeLayout>

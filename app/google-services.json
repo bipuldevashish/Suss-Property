@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "823798554778",
-    "firebase_url": "https://trader-3692e.firebaseio.com",
-    "project_id": "trader-3692e",
-    "storage_bucket": "trader-3692e.appspot.com"
+    "project_number": "398640222259",
+    "firebase_url": "https://trader-7c8bf.firebaseio.com",
+    "project_id": "trader-7c8bf",
+    "storage_bucket": "trader-7c8bf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:823798554778:android:e9188977f3ad9c13f1ff23",
+        "mobilesdk_app_id": "1:398640222259:android:1db418b6fa9016aadf5346",
         "android_client_info": {
           "package_name": "com.example.bipuldevashish"
         }
       },
       "oauth_client": [
         {
-          "client_id": "823798554778-08r77hskutv9p2qro9p34sn4me2mqnpp.apps.googleusercontent.com",
+          "client_id": "398640222259-mpc2hbujo2g6aabf304kuaghpdkprtvr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bipuldevashish",
+            "certificate_hash": "5e818108449c77de30121ece03428fbe5a622f22"
+          }
+        },
+        {
+          "client_id": "398640222259-t9qfhrcr208f3sqs4eb2vch4arg5ls00.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBqVacF4h2QKBz8JkRaPsRgVWUsStCNUD8"
+          "current_key": "AIzaSyDY_cNP1OT64YwLcpLC-5Z3yte8DlOcM58"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "823798554778-08r77hskutv9p2qro9p34sn4me2mqnpp.apps.googleusercontent.com",
+              "client_id": "398640222259-t9qfhrcr208f3sqs4eb2vch4arg5ls00.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
