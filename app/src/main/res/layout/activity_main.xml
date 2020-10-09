@@ -6,66 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="16dp"
-        tools:ignore="UselessParent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/createanewaccount"
-            android:layout_marginTop="10dp"
-            android:text="Create a new account"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextUsername"
-            android:inputType="textEmailAddress"
-            android:hint="Full Name"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextEmail"
-            android:inputType="textEmailAddress"
-            android:hint="Email"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextPassword"
-            android:inputType="textPassword"
-            android:hint="Password"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextConfirmPassword"
-            android:inputType="textPassword"
-            android:hint="Confirm Password"
-            android:layout_marginTop="10dp"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_register"
-            android:text="Register"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"/>
-
-    </LinearLayout>
 
 
 </RelativeLayout>
