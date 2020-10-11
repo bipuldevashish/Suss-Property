@@ -130,6 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginBtn"
         android:gravity="center"
+        android:id="@+id/linearlayoutNoaccount"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -146,6 +147,5 @@
             android:text=" Register With Us."/>
 
     </LinearLayout>
-
 
 </RelativeLayout>

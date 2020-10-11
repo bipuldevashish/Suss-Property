@@ -3,6 +3,7 @@
     package="com.example.bipuldevashish">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Home"></activity>
+        <activity android:name=".Activity.Profile"></activity>
+        <activity android:name=".Activity.Home" />
         <activity android:name=".Activity.Register" />
         <activity android:name=".Activity.Login" />
         <activity android:name=".Splash">
