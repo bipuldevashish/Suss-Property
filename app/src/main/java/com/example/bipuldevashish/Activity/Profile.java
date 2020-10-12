@@ -3,6 +3,7 @@ package com.example.bipuldevashish.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -19,32 +20,43 @@ import com.google.firebase.database.ValueEventListener;
 public class Profile extends AppCompatActivity {
 
     //variable declaration
-    TextView usernameTextView,userEmailTextView,userPhoneNumberTextView;
+    TextView usernameTextView,
+            userEmailTextView,
+            userPhoneNumberTextView;
+    ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
     final String TAG = "Profile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-    //Linking the variables to the UI
-    usernameTextView = findViewById(R.id.userName);
-    userEmailTextView = findViewById(R.id.userEmail);
-    userPhoneNumberTextView = findViewById(R.id.userPhoneNumber);
+        // Progress Dialog Init
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Loading ");
+        progressDialog.setMessage("Retrieving profile data");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
-    //Firebase reference
+        //Linking the variables to the UI
+        usernameTextView = findViewById(R.id.userName);
+        userEmailTextView = findViewById(R.id.userEmail);
+        userPhoneNumberTextView = findViewById(R.id.userPhoneNumber);
+
+        //Firebase reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
 
         mDatabase.child("Users").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
-                    public void onDataChange (DataSnapshot dataSnapshot){
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
                         // [START_EXCLUDE]
                         if (dataSnapshot.exists()) {
-                            // User is null, error out
+
+                            // fetching data from firebase
                             String fullName = dataSnapshot.child("Name").getValue(String.class);
                             String Email = dataSnapshot.child("Email").getValue(String.class);
                             String Mobile = dataSnapshot.child("Mobile").getValue(String.class);
@@ -69,9 +81,11 @@ public class Profile extends AppCompatActivity {
                 });
     }
 
-    public void setProfile(String name, String email, String mobile){
+    public void setProfile(String name, String email, String mobile) {
         usernameTextView.setText(name);
         userEmailTextView.setText(email);
         userPhoneNumberTextView.setText(mobile);
+
+        progressDialog.dismiss();
     }
 }
