@@ -22,15 +22,16 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/userProfile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:clickable="false"
+        android:src="@drawable/profile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         app:civ_border_width="2dp"
-        android:elevation="5dp"
-        app:civ_border_color="#FF000000"/>
+        android:elevation="6dp"
+        app:civ_border_color="#FF000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,34 +41,34 @@
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:padding="10dp"
-        android:layout_below="@+id/userProfile_image"
-        >
+        android:visibility="visible"
+        android:layout_below="@+id/userProfile_image">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentPadding="5dp"
-        app:cardElevation="5dp"
-        android:layout_margin="4dp"
-        android:id="@+id/profileNameCard">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="5dp"
+            app:cardElevation="5dp"
+            android:layout_margin="4dp"
+            android:id="@+id/profileNameCard">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NAME"
-        android:id="@+id/titleName"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:id="@+id/titleName"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp" />
 
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center"
-         android:id="@+id/userName"
-         android:textSize="20sp"
-         android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/userName"
+                android:textSize="20sp"
+                android:layout_marginStart="20dp" />
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -77,21 +78,21 @@
             android:layout_margin="4dp"
             android:id="@+id/profileEmailCard">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:id="@+id/titleEmail"
-            android:layout_marginLeft="20dp"
-            android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:id="@+id/titleEmail"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/userEmail"
-            android:textSize="20sp"
-            android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/userEmail"
+                android:textSize="20sp"
+                android:layout_marginStart="20dp" />
         </androidx.cardview.widget.CardView>
 
 
@@ -106,9 +107,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
+                android:text="@string/phone_number"
                 android:id="@+id/titlePhoneNumber"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:textSize="20sp"/>
 
             <TextView
@@ -117,20 +118,96 @@
                 android:layout_gravity="center"
                 android:id="@+id/userPhoneNumber"
                 android:textSize="20sp"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginStart="20dp" />
 
         </androidx.cardview.widget.CardView>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:id="@+id/registerBtn"
+            android:text="@string/edit_profile"
+            android:id="@+id/editProfileButton"
             android:minHeight="45dp"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="#fff"
-            android:background="#9C27B0"/>
+            android:background="#9C27B0" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/updateProfileForm"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:layout_below="@+id/userProfile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:contentPadding="5dp"
+            app:cardElevation="5dp"
+            android:layout_margin="4dp"
+            android:id="@+id/mobileCard"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/full_name" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textPersonName"
+                android:id="@+id/etNameUpdateProfile"
+                android:backgroundTint="#FFFFFF"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:contentPadding="5dp"
+            app:cardElevation="5dp"
+            android:layout_margin="4dp"
+            android:id="@+id/updateEmaiCard"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/email" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="textEmailAddress"
+                android:id="@+id/etEmailUpdateProfile"
+                android:backgroundTint="#FFFFFF"
+                android:textSize="18sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save"
+            android:id="@+id/saveButton"
+            android:minHeight="55dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:background="#9C27B0" />
+    </LinearLayout>
+
 </RelativeLayout>
