@@ -1,23 +1,14 @@
-package com.example.bipuldevashish;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.bipuldevashish.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.bipuldevashish.Activity.Home;
-import com.example.bipuldevashish.Activity.Login;
-import com.example.bipuldevashish.Activity.Register;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bipuldevashish.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 
 public class Splash extends AppCompatActivity {
 
@@ -84,11 +75,13 @@ public class Splash extends AppCompatActivity {
 //                    userCheck.addListenerForSingleValueEvent(valueEventListener);
 //                }
 //
-           }
+            }
 
         }, SPLASH_SCREEN_TIME_OUT);
 
 
     }
 
+
 }
+
