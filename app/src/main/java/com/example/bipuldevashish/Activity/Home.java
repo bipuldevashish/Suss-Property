@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bipuldevashish.Fragments.BuyFragment;
 import com.example.bipuldevashish.Fragments.HomeFragment;
@@ -22,6 +23,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
 
+    // Constants
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
+    // ---------------------------------------------------------------------------------------------
     BottomNavigationView bottomNavigationView;
     TextView tvFragmentName;
 
@@ -31,14 +36,18 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        // UI LINKS
+        CircleImageView setAccount = findViewById(R.id.userProfileImage);
         tvFragmentName = findViewById(R.id.fragmentName);
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        // -----------------------------------------------------------------------------------------
+
+        // Load Default Frag : HomeFrag
         loadFragment(new HomeFragment());
 
 
-        CircleImageView setAccount = findViewById(R.id.userProfileImage);
+      // Go To Profile
         setAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +56,7 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    // Load Fragment
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentFrame, fragment);
@@ -77,4 +87,15 @@ public class Home extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        } else {
+            Toast.makeText(getBaseContext(), "Double Click To Quit App", Toast.LENGTH_SHORT).show();
+        }
+        mBackPressed = System.currentTimeMillis();
+    }
 }
