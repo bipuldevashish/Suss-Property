@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.BuyFragment">
 
-
+<!--Keep MarginTop : 50 to avoid overlapping from Custom App Bar-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           android:gravity="center"
-            android:text="Buy" />
+            android:text="gdfg"/>
 
     </RelativeLayout>
 
