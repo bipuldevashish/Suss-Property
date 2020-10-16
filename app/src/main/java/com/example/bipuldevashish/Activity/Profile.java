@@ -2,10 +2,12 @@ package com.example.bipuldevashish.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,12 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bipuldevashish.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 public class Profile extends AppCompatActivity {
 
@@ -34,17 +45,18 @@ public class Profile extends AppCompatActivity {
     ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
     DatabaseReference reference;
+    private FirebaseAuth mAuth;
     final String TAG = "Profile";
     public static final int PICK_IMAGE = 1;
-    private int requestCode;
-    private int resultCode;
-    private Intent data;
+    Uri imageUri;
+    private String myUri;
+    private StorageReference storageProfilePicsRef;
+    private StorageTask uploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         //EditProfile Button Linked
         editProfileButton = findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +77,7 @@ public class Profile extends AppCompatActivity {
         imageViewproFilepic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                pickImageFromGallery();
 
             }
         });
@@ -105,7 +114,16 @@ public class Profile extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         reference = mDatabase.child("Users").child(userId);
+        mAuth = FirebaseAuth.getInstance();
+        storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile Pic");
         updateDatabase();
+    }
+
+    private void pickImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
     private void updateDatabase() {
@@ -121,8 +139,8 @@ public class Profile extends AppCompatActivity {
                             String fullName = dataSnapshot.child("Name").getValue(String.class);
                             String Email = dataSnapshot.child("Email").getValue(String.class);
                             String Mobile = dataSnapshot.child("Mobile").getValue(String.class);
-
-                            setProfile(fullName, Email, Mobile);
+                            String Image = dataSnapshot.child("image").getValue().toString();
+                            setProfile(fullName, Email, Mobile, Image);
 
                         } else {
 
@@ -151,24 +169,63 @@ public class Profile extends AppCompatActivity {
         updateDatabase();
     }
 
-    public void setProfile(String name, String email, String mobile) {
+    public void setProfile(String name, String email, String mobile, String image) {
         usernameTextView.setText(name);
         userEmailTextView.setText(email);
         userPhoneNumberTextView.setText(mobile);
         etextName.setText(name);
         etextEmail.setText(email);
+        Picasso.get().load(image).into(imageViewproFilepic);
         progressDialog.dismiss();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.requestCode = requestCode;
-        this.resultCode = resultCode;
-        this.data = data;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            //TODO: action
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+
+            imageUri = data.getData();
+            uploadProfileImage();
+            updateProfile();
 
         }
     }
+
+    private void uploadProfileImage() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading");
+        progressDialog.setMessage("Please wait ,While we are setting your profile");
+        progressDialog.show();
+
+        if (imageUri != null) {
+            final StorageReference fileRef = storageProfilePicsRef.child(mAuth.getCurrentUser().getUid() + ".jpg");
+            uploadTask = fileRef.putFile(imageUri);
+
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+
+                        Uri downloadUri = task.getResult();
+                        myUri = downloadUri.toString();
+
+                        HashMap<String, Object> userMap = new HashMap<>();
+                        userMap.put("image", myUri);
+
+                        reference.updateChildren(userMap);
+                        progressDialog.dismiss();
+                    }
+                }
+            });
+        }
+    }
+
 }
+
