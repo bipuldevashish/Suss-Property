@@ -57,6 +57,7 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         //EditProfile Button Linked
         editProfileButton = findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -65,22 +66,21 @@ public class Profile extends AppCompatActivity {
 
                 LinearLayout linearLayoutProfileDetails = findViewById(R.id.profileDetailForm);
                 LinearLayout linearLayoutUpdateProfile = findViewById(R.id.updateProfileForm);
-
                 linearLayoutProfileDetails.setVisibility(View.GONE);
                 linearLayoutUpdateProfile.setVisibility(View.VISIBLE);
-                imageViewproFilepic.setClickable(true);
+
+                //profile pic button clickable enabled
+                imageViewproFilepic = findViewById(R.id.userProfile_image);
+                imageViewproFilepic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        pickImageFromGallery();
+
+                    }
+                });
             }
         });
 
-        //profile pic button clickable enabled
-        imageViewproFilepic = findViewById(R.id.userProfile_image);
-        imageViewproFilepic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pickImageFromGallery();
-
-            }
-        });
 
         // Save profile Button Linked
         saveButton = findViewById(R.id.saveButton);
@@ -116,6 +116,7 @@ public class Profile extends AppCompatActivity {
         reference = mDatabase.child("Users").child(userId);
         mAuth = FirebaseAuth.getInstance();
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("Profile Pic");
+        Log.d(TAG, "entering updateDatabase()");
         updateDatabase();
     }
 
@@ -139,8 +140,10 @@ public class Profile extends AppCompatActivity {
                             String fullName = dataSnapshot.child("Name").getValue(String.class);
                             String Email = dataSnapshot.child("Email").getValue(String.class);
                             String Mobile = dataSnapshot.child("Mobile").getValue(String.class);
-                            String Image = dataSnapshot.child("image").getValue().toString();
+                            String Image = dataSnapshot.child("image").getValue(String.class);
+                            Log.d(TAG, "update database working Moving to setProfile");
                             setProfile(fullName, Email, Mobile, Image);
+                            progressDialog.dismiss();
 
                         } else {
 
@@ -175,8 +178,14 @@ public class Profile extends AppCompatActivity {
         userPhoneNumberTextView.setText(mobile);
         etextName.setText(name);
         etextEmail.setText(email);
-        Picasso.get().load(image).into(imageViewproFilepic);
-        progressDialog.dismiss();
+        if (image == "" || image == null) {
+            imageViewproFilepic.setImageResource(R.drawable.profile);
+            Log.d(TAG, "value of image inside if" + image);
+        } else {
+            Picasso.get().load(image).into(imageViewproFilepic);
+            Log.d(TAG, "value of image inside else" + image);
+            progressDialog.dismiss();
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
