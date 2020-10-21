@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="house_type_array">
+        <item>1 RK</item>
+        <item>1 BHK</item>
+        <item>2 BHK</item>
+        <item>3 BHK</item>
+        <item>4 BHK</item>
+        <item>2 BHK 2T</item>
+        <item>3 BHK 2T</item>
+        <item>4 BHK 2T</item>
+        <item>4+ BHK</item>
+    </array>
+
+    <array name="facing">
+        <item>UnKnown</item>
+        <item>East</item>
+        <item>West</item>
+        <item>North</item>
+        <item>South</item>
+        <item>North-East</item>
+        <item>South-East</item>
+        <item>North-West</item>
+        <item>South-West</item>
+    </array>
+
+
+    <array name="propertyType">
+        <item>Rent</item>
+        <item>Sale</item>
+    </array>
+
+    <array name="preffered_tenant">
+        <item>Family</item>
+        <item>Bachelor</item>
+        <item>Company</item>
+        <item>Anyone</item>
+    </array>
+</resources>

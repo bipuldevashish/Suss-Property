@@ -8,14 +8,21 @@
     <RelativeLayout
         android:id="@+id/sellPost"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="60dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/lightGrey">
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_fragmentSell"
@@ -35,13 +42,17 @@
                         android:text="Type"
                         android:textSize="14sp" />
 
-                    <Spinner
-                        android:id="@+id/spinner_type"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="40dp"
-                        android:background="@color/lightGrey"
-                        android:layout_marginTop="6dp" />
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:id="@+id/spinner_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -50,13 +61,17 @@
                         android:text="@string/flat_layout"
                         android:textSize="14sp" />
 
-                    <Spinner
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingTop="40dp"
-                        android:background="@color/lightGrey"
-                        android:id="@+id/spinner_flatLayout" />
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="6dp"
+                            android:id="@+id/spinner_flatLayout" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -65,13 +80,17 @@
                         android:text="Facing"
                         android:textSize="14sp" />
 
-                    <Spinner
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingTop="40dp"
-                        android:background="@color/lightGrey"
-                        android:id="@+id/spinner_facing" />
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="6dp"
+                            android:id="@+id/spinner_facing" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -83,9 +102,8 @@
                     <EditText
                         android:id="@+id/edText_areaInSqrft"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingTop="20dp"
                         android:background="@color/lightGrey"
                         android:paddingLeft="8dp"
                         android:textSize="18sp" />
@@ -94,15 +112,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Rate"
+                        android:text="@string/rate"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/edText_rate"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_marginTop="6dp"
-                        android:paddingTop="20dp"
                         android:textSize="18sp"
                         android:background="@color/lightGrey"
                         android:inputType="number"
@@ -118,13 +135,13 @@
                     <EditText
                         android:id="@+id/edText_description"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="50dp"
-                        android:gravity="center_vertical"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
                         android:background="@color/lightGrey"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="8dp"
-                        android:textSize="18sp" />
+                        android:hint="Tell us more about your property"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -136,23 +153,25 @@
                     <EditText
                         android:id="@+id/edText_address"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80dp"
+                        android:hint="Address of the property "
                         android:layout_marginTop="6dp"
-                        android:paddingTop="50dp"
                         android:background="@color/lightGrey"
                         android:paddingLeft="8dp" />
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/buttonSaveandContinue"
-                        android:textColor="#FFFFFF"
-                        android:background="#9C27B0"
-                        android:text="@string/save_and_continue" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </ScrollView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/buttonSaveandContinue"
+            android:textColor="#FFFFFF"
+            android:background="#9C27B0"
+            android:text="@string/save_and_continue"
+            android:layout_below="@+id/scrollView" />
     </RelativeLayout>
 
 </FrameLayout>
