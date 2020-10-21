@@ -7,4 +7,8 @@
     <string name="full_name">Full Name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="flat_layout">Flat Layout</string>
+    <string name="plot_area">Plot Area</string>
+    <string name="description">Description</string>
+    <string name="save_and_continue">save and continue</string>
 </resources>

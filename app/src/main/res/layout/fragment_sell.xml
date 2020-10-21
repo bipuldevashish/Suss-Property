@@ -6,16 +6,153 @@
     tools:context=".Fragments.SellFragment">
 
     <RelativeLayout
+        android:id="@+id/sellPost"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="70dp">
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Sell" />
+            android:layout_height="match_parent">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_fragmentSell"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:id="@+id/linearlayoutFragmentSell"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="40dp"
+                        android:background="@color/lightGrey"
+                        android:layout_marginTop="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/flat_layout"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingTop="40dp"
+                        android:background="@color/lightGrey"
+                        android:id="@+id/spinner_flatLayout" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Facing"
+                        android:textSize="14sp" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingTop="40dp"
+                        android:background="@color/lightGrey"
+                        android:id="@+id/spinner_facing" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/plot_area"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_areaInSqrft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingTop="20dp"
+                        android:background="@color/lightGrey"
+                        android:paddingLeft="8dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Rate"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_rate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingTop="20dp"
+                        android:textSize="18sp"
+                        android:background="@color/lightGrey"
+                        android:inputType="number"
+                        android:paddingLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/description"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="50dp"
+                        android:gravity="center_vertical"
+                        android:background="@color/lightGrey"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="8dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Address"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingTop="50dp"
+                        android:background="@color/lightGrey"
+                        android:paddingLeft="8dp" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/buttonSaveandContinue"
+                        android:textColor="#FFFFFF"
+                        android:background="#9C27B0"
+                        android:text="@string/save_and_continue" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
     </RelativeLayout>
 
 </FrameLayout>
