@@ -75,6 +75,7 @@ public class Register extends AppCompatActivity {
         String user_mobile = mobile.getText().toString().trim();
         String user_password = password.getText().toString().trim();
         String user_cpassword = confirmPass.getText().toString().trim();
+        String user_image = "";
 
         if (user_name.isEmpty())
         {
@@ -102,7 +103,7 @@ public class Register extends AppCompatActivity {
             progressDialog.setMessage("Please wait while We Create Your Account");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            authenticate(user_name,user_email,user_mobile,user_password);
+            authenticate(user_name, user_email, user_mobile, user_password, user_image);
         }
         else {
 
@@ -111,15 +112,12 @@ public class Register extends AppCompatActivity {
 
     }
 
-    private void authenticate(final String user_name, final String user_email, final String user_mobile, final String user_password)
-    {
+    private void authenticate(final String user_name, final String user_email, final String user_mobile, final String user_password, final String user_image) {
 
-        firebaseAuth.createUserWithEmailAndPassword(user_mobile+"@tradee.com",user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(user_mobile + "@tradee.com", user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                if (task.isSuccessful())
-                {
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     String userId = currentUser.getUid();
 
@@ -131,7 +129,8 @@ public class Register extends AppCompatActivity {
                     userNode.put("Name",user_name);
                     userNode.put("Email",user_email);
                     userNode.put("Mobile",user_mobile);
-                    userNode.put("Password",user_password);
+                    userNode.put("Password", user_password);
+                    userNode.put("image", user_image);
 
 
                     userDb.setValue(userNode).addOnCompleteListener(new OnCompleteListener<Void>() {

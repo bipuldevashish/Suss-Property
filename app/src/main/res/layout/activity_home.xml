@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="end"
                 android:id="@+id/userProfileImage"
-               app:civ_circle_background_color="@color/cardview_dark_background"
+                app:civ_circle_background_color="@color/cardview_dark_background"
                 android:src="@color/cardview_light_background"/>
 
         </LinearLayout>
