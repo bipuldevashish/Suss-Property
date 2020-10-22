@@ -3,9 +3,11 @@ package com.example.bipuldevashish.Fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -22,28 +24,43 @@ import android.widget.Toast;
 import com.example.bipuldevashish.Activity.Home;
 import com.example.bipuldevashish.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.bipuldevashish.Activity.Profile.PICK_IMAGE;
 
 
 public class SellFragment extends Fragment {
 
     Spinner spinnerFlatLayout, spinnerType, spinnerFacing;
     String spinnerFlatLayoutResult, spinnerTypeResult, spinnerFacingResult;
-    Button saveAndContinue;
+    Button saveAndContinue, buttonAttachment;
     EditText editPlotArea, editRate, editDescription, editAddress;
     FirebaseDatabase database;
     DatabaseReference reference;
-    ProgressDialog progressDialog;
+    ArrayList<Uri> imageList = new ArrayList<Uri>();
+    private Uri imageUri;
+    private String id;
+    final String TAG = "SellFragment";
+    private int uploadCount;
+    StorageReference storageReference;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +72,7 @@ public class SellFragment extends Fragment {
         spinnerFacing = rootView.findViewById(R.id.spinner_facing);
         spinnerFlatLayout = rootView.findViewById(R.id.spinner_flatLayout);
         saveAndContinue = rootView.findViewById(R.id.buttonSaveandContinue);
+        buttonAttachment = rootView.findViewById(R.id.buttonAttachment);
         editPlotArea = rootView.findViewById(R.id.edText_areaInSqrft);
         editAddress = rootView.findViewById(R.id.edText_address);
         editDescription = rootView.findViewById(R.id.edText_description);
@@ -63,6 +81,10 @@ public class SellFragment extends Fragment {
         // firebase linkage
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Postdetails");
+        id = reference.push().getKey();
+        storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(id);
+
+
         //spinner flatlayout implemented
         ArrayAdapter<CharSequence> myAdapterFlatLayout = ArrayAdapter.createFromResource(rootView.getContext(),
                 R.array.house_type_array, android.R.layout.simple_list_item_1);
@@ -78,7 +100,7 @@ public class SellFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(getContext(), " Please select a property layout option", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -99,7 +121,7 @@ public class SellFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(getContext(), " Please select a property type option", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -109,7 +131,6 @@ public class SellFragment extends Fragment {
                 R.array.facing, android.R.layout.simple_list_item_1);
         // Specify the layout to use when the list of choices appears
         myAdapterFacing.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         // Apply the adapter to the spinner
         spinnerFacing.setAdapter(myAdapterFacing);
         spinnerFacing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,22 +138,107 @@ public class SellFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerFacingResult = parent.getItemAtPosition(position).toString();
 
-                Toast.makeText(getContext(), spinnerFlatLayoutResult, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(getContext(), " Please select a facing option", Toast.LENGTH_SHORT).show();
             }
         });
 
+
+        //save and continue button functionallity added
         saveAndContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateSellingDetails();
             }
         });
+
+
+        //Attachment button functionality added
+        buttonAttachment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickFromGallery();
+            }
+        });
+
+
         return rootView;
+
+    }
+
+    private void pickFromGallery() {
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        startActivityForResult(intent, PICK_IMAGE);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getClipData() != null) {
+
+            int countClipData = data.getClipData().getItemCount();
+            Log.d(TAG, "value of countdata = " + countClipData);
+
+            if (countClipData == 5) {
+                int currentImageSelected = 0;
+                while (currentImageSelected < countClipData) {
+                    imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
+                    imageList.add(imageUri);
+                    Log.d(TAG, "value of currentImageSelected = " + currentImageSelected);
+                    currentImageSelected = currentImageSelected + 1;
+                    uploadImage();
+                }
+            } else {
+                Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            Toast.makeText(getContext(), "Please select Images", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void uploadImage() {
+
+        Log.d(TAG, "Entering uploadImage()");
+
+        for (uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
+
+            Uri individualImage = imageList.get(uploadCount);
+            final StorageReference imageName = storageReference.child("image" + individualImage.getLastPathSegment());
+
+            Log.d(TAG, "value of uploadCount = " + uploadCount);
+
+            imageName.putFile(individualImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imageName.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = String.valueOf(uri);
+                            storeLink(url);
+                        }
+                    });
+                }
+            });
+
+
+        }
+    }
+
+    private void storeLink(String url) {
+        HashMap<String, String> hashMapImages = new HashMap<>();
+        hashMapImages.put("image1", url);
+
+        reference.child(id).child("propertyImages").push().setValue(hashMapImages);
     }
 
     private void validateSellingDetails() {
@@ -144,25 +250,23 @@ public class SellFragment extends Fragment {
 
         if (rate.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Rate", Toast.LENGTH_SHORT).show();
-        }
-        if (address.isEmpty()) {
+        } else if (address.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
-        }
-        if (plotArea.isEmpty()) {
+        } else if (plotArea.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter The Plot Area", Toast.LENGTH_SHORT).show();
-        }
-        if (description.isEmpty()) {
+        } else if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "data filled properly", Toast.LENGTH_SHORT).show();
             uploadData(rate, address, plotArea, description);
+
         }
 
     }
 
     private void uploadData(String rate, String address, String plotArea, String description) {
 
-        String id = reference.push().getKey();
+
         final HashMap<String, Object> UserNewsDb = new HashMap<>();
 
         UserNewsDb.put("type", spinnerTypeResult);
@@ -183,7 +287,7 @@ public class SellFragment extends Fragment {
                 } else {
                     Log.d("RegisterActivity", "Couldnt save Seller details");
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    progressDialog.hide();
+
                 }
             }
         });

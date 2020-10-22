@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="house_type_array">
+        <item>Select BHK</item>
         <item>1 RK</item>
         <item>1 BHK</item>
         <item>2 BHK</item>
@@ -13,6 +14,7 @@
     </array>
 
     <array name="facing">
+        <item>Select Facing Direction</item>
         <item>UnKnown</item>
         <item>East</item>
         <item>West</item>
@@ -26,6 +28,7 @@
 
 
     <array name="propertyType">
+        <item>Select Property Type</item>
         <item>Rent</item>
         <item>Sale</item>
     </array>
