@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trader</string>
+    <string name="app_name">SUSS</string>
     <string name="name">NAME</string>
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
@@ -10,7 +10,7 @@
     <string name="flat_layout">Property Layout</string>
     <string name="plot_area">Plot Area</string>
     <string name="description">Description</string>
-    <string name="save_and_continue">save and continue</string>
+    <string name="save_and_continue">Post ad</string>
     <string name="rate">Rate</string>
     <string name="property_type">Property Type</string>
 </resources>

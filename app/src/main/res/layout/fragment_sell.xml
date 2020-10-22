@@ -27,6 +27,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_fragmentSell"
+                app:cardElevation="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

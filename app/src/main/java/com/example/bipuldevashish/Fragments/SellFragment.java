@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,11 +49,10 @@ public class SellFragment extends Fragment {
     EditText editPlotArea, editRate, editDescription, editAddress;
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<Uri> imageList = new ArrayList<Uri>();
-    private Uri imageUri;
+    ArrayList<Uri> imageList = new ArrayList<>();
+    ArrayList<String> propertyImageArray = new ArrayList<>();
     private String id;
     final String TAG = "SellFragment";
-    private int uploadCount;
     StorageReference storageReference;
 
 
@@ -95,7 +95,14 @@ public class SellFragment extends Fragment {
         spinnerFlatLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Log.d(TAG, "Value of position" + position);
                 spinnerFlatLayoutResult = parent.getItemAtPosition(position).toString();
+                if (position == 0) {
+                    Toast.makeText(getContext(), " Please select a property layout", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -116,7 +123,13 @@ public class SellFragment extends Fragment {
         spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                Log.d(TAG, "Value of position" + position);
                 spinnerTypeResult = parent.getItemAtPosition(position).toString();
+                if (position == 0) {
+                    Toast.makeText(getContext(), " Please select a property Type", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -136,7 +149,12 @@ public class SellFragment extends Fragment {
         spinnerFacing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Log.d(TAG, "Value of position" + position);
                 spinnerFacingResult = parent.getItemAtPosition(position).toString();
+                if (position == 0) {
+                    Toast.makeText(getContext(), " Please select a property Facing", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -182,7 +200,7 @@ public class SellFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data.getClipData() != null) {
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
 
             int countClipData = data.getClipData().getItemCount();
             Log.d(TAG, "value of countdata = " + countClipData);
@@ -190,16 +208,15 @@ public class SellFragment extends Fragment {
             if (countClipData == 5) {
                 int currentImageSelected = 0;
                 while (currentImageSelected < countClipData) {
-                    imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
+                    Uri imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
                     imageList.add(imageUri);
                     Log.d(TAG, "value of currentImageSelected = " + currentImageSelected);
                     currentImageSelected = currentImageSelected + 1;
                     uploadImage();
                 }
             } else {
-                Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please select exactly 5 Images", Toast.LENGTH_SHORT).show();
             }
-
         } else {
             Toast.makeText(getContext(), "Please select Images", Toast.LENGTH_SHORT).show();
         }
@@ -210,6 +227,7 @@ public class SellFragment extends Fragment {
 
         Log.d(TAG, "Entering uploadImage()");
 
+        int uploadCount;
         for (uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
 
             Uri individualImage = imageList.get(uploadCount);
@@ -224,7 +242,8 @@ public class SellFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = String.valueOf(uri);
-                            storeLink(url);
+                            propertyImageArray.add(url);
+
                         }
                     });
                 }
@@ -234,12 +253,6 @@ public class SellFragment extends Fragment {
         }
     }
 
-    private void storeLink(String url) {
-        HashMap<String, String> hashMapImages = new HashMap<>();
-        hashMapImages.put("image1", url);
-
-        reference.child(id).child("propertyImages").push().setValue(hashMapImages);
-    }
 
     private void validateSellingDetails() {
 
@@ -254,6 +267,8 @@ public class SellFragment extends Fragment {
             Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
         } else if (plotArea.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter The Plot Area", Toast.LENGTH_SHORT).show();
+        } else if (propertyImageArray.isEmpty()) {
+            Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
         } else if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else {
@@ -276,6 +291,11 @@ public class SellFragment extends Fragment {
         UserNewsDb.put("rate", rate);
         UserNewsDb.put("address", address);
         UserNewsDb.put("description", description);
+
+        for (int i = 0; i < propertyImageArray.size(); i++) {
+            String imageulr = propertyImageArray.get(i);
+            UserNewsDb.put("image" + i, imageulr);
+        }
 
         reference.child(id).setValue(UserNewsDb).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

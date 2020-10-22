@@ -15,7 +15,6 @@
 
     <array name="facing">
         <item>Select Facing Direction</item>
-        <item>UnKnown</item>
         <item>East</item>
         <item>West</item>
         <item>North</item>
@@ -24,6 +23,7 @@
         <item>South-East</item>
         <item>North-West</item>
         <item>South-West</item>
+        <item>Unknown</item>
     </array>
 
 
