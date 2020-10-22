@@ -9,11 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bipuldevashish.Fragments.BuyFragment;
 import com.example.bipuldevashish.Fragments.HomeFragment;
 import com.example.bipuldevashish.Fragments.SellFragment;
 import com.example.bipuldevashish.R;
@@ -23,7 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
 
-    // Constants
+    // Constants -----------------------------------------------------------------------------------
     private static final int TIME_INTERVAL = 2000;
     private long mBackPressed;
     // ---------------------------------------------------------------------------------------------
@@ -68,12 +66,8 @@ public class Home extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
             int id = menuItem.getItemId();
-            if(id == R.id.nav_buy) {
-                tvFragmentName.setText("Buy");
-                loadFragment(new BuyFragment());
-                return true;
-            }
-            else if(id == R.id.nav_home) {
+
+            if(id == R.id.nav_home) {
                 tvFragmentName.setText("Home");
                 loadFragment(new HomeFragment());
                 return true;
@@ -88,6 +82,8 @@ public class Home extends AppCompatActivity {
         }
     };
 
+
+    // Avoid Closing App on Pressing back button
     @Override
     public void onBackPressed() {
         if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {

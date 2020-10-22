@@ -48,9 +48,11 @@ public class SellFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_sell, container, false);
-        //Linking all the spinners to ui
+
+        //Linking all the xml elements
         spinnerType = rootView.findViewById(R.id.spinner_type);
         spinnerFacing = rootView.findViewById(R.id.spinner_facing);
         spinnerFlatLayout = rootView.findViewById(R.id.spinner_flatLayout);
@@ -63,6 +65,7 @@ public class SellFragment extends Fragment {
         // firebase linkage
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Postdetails");
+
         //spinner flatlayout implemented
         ArrayAdapter<CharSequence> myAdapterFlatLayout = ArrayAdapter.createFromResource(rootView.getContext(),
                 R.array.house_type_array, android.R.layout.simple_list_item_1);
@@ -81,7 +84,6 @@ public class SellFragment extends Fragment {
 
             }
         });
-
 
         //spinner Property Type implemented
         ArrayAdapter<CharSequence> myAdapterType = ArrayAdapter.createFromResource(rootView.getContext(),
@@ -102,7 +104,6 @@ public class SellFragment extends Fragment {
 
             }
         });
-
 
         //spinner property facing implemented
         ArrayAdapter<CharSequence> myAdapterFacing = ArrayAdapter.createFromResource(rootView.getContext(),
@@ -154,7 +155,12 @@ public class SellFragment extends Fragment {
         if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "data filled properly", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(), "data filled properly", Toast.LENGTH_SHORT).show();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setTitle("Sit Back !");
+            progressDialog.setMessage("While We Save Your Data");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
             uploadData(rate, address, plotArea, description);
         }
 
@@ -162,7 +168,7 @@ public class SellFragment extends Fragment {
 
     private void uploadData(String rate, String address, String plotArea, String description) {
 
-        String id = reference.push().getKey();
+        String pushGeneratorKey = reference.push().getKey();
         final HashMap<String, Object> UserNewsDb = new HashMap<>();
 
         UserNewsDb.put("type", spinnerTypeResult);
@@ -173,10 +179,11 @@ public class SellFragment extends Fragment {
         UserNewsDb.put("address", address);
         UserNewsDb.put("description", description);
 
-        reference.child(id).setValue(UserNewsDb).addOnCompleteListener(new OnCompleteListener<Void>() {
+        reference.child(pushGeneratorKey).setValue(UserNewsDb).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    progressDialog.dismiss();
                     Intent goHome = new Intent(getActivity(), Home.class);
                     goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(goHome);

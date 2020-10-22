@@ -43,6 +43,8 @@
                 android:src="@color/cardview_light_background"/>
 
         </LinearLayout>
+
+
     </FrameLayout>
 
 
@@ -52,6 +54,7 @@
 <!--        android:text="Profile"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        android:id="@+id/setProfile"/>-->
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
