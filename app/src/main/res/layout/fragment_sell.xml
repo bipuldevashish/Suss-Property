@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,6 +27,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_fragmentSell"
+                app:cardElevation="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -39,12 +41,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Type"
+                        android:text="@string/property_type"
                         android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
@@ -64,12 +67,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginTop="6dp"
                             android:id="@+id/spinner_flatLayout" />
                     </LinearLayout>
 
@@ -83,12 +86,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
-                            android:layout_marginTop="6dp"
                             android:id="@+id/spinner_facing" />
                     </LinearLayout>
 
@@ -106,6 +109,8 @@
                         android:layout_marginTop="10dp"
                         android:background="@color/lightGrey"
                         android:paddingLeft="8dp"
+                        android:hint="Enter the area in sqft"
+                        android:inputType="numberDecimal"
                         android:textSize="18sp" />
 
                     <TextView
@@ -121,6 +126,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="6dp"
                         android:textSize="18sp"
+                        android:hint="Enter the price"
                         android:background="@color/lightGrey"
                         android:inputType="number"
                         android:paddingLeft="8dp" />
@@ -140,6 +146,7 @@
                         android:background="@color/lightGrey"
                         android:layout_marginTop="10dp"
                         android:paddingLeft="8dp"
+                        android:inputType="textCapSentences"
                         android:hint="Tell us more about your property"
                         android:textSize="16sp" />
 
@@ -157,21 +164,42 @@
                         android:hint="Address of the property "
                         android:layout_marginTop="6dp"
                         android:background="@color/lightGrey"
+                        android:inputType="textCapSentences"
                         android:paddingLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Select 5 pics of the property"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/buttonAttachment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/lightGrey"
+                        android:padding="15dp"
+                        android:hint="Attach"
+                        android:clickable="true"
+                        app:drawableLeftCompat="@drawable/ic_baseline_attach_file_24" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/buttonSaveandContinue"
+                        android:textColor="#FFFFFF"
+                        android:background="#9C27B0"
+                        android:text="@string/save_and_continue" />7
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </ScrollView>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/buttonSaveandContinue"
-            android:textColor="#FFFFFF"
-            android:background="#9C27B0"
-            android:text="@string/save_and_continue"
-            android:layout_below="@+id/scrollView" />
     </RelativeLayout>
 
 </FrameLayout>

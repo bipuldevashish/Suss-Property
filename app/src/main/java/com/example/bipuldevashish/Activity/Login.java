@@ -107,7 +107,7 @@ public class Login extends AppCompatActivity {
                 else
                 {
                     progressDialog.dismiss();
-                    Toast.makeText(Login.this, "Check Data Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Incorrect Credentials", Toast.LENGTH_SHORT).show();
                 }
 
             }
