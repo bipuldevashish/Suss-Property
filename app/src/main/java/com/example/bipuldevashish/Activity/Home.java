@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import com.example.bipuldevashish.Fragments.HomeFragment;
 import com.example.bipuldevashish.Fragments.SellFragment;
 import com.example.bipuldevashish.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,8 +47,8 @@ public class Home extends AppCompatActivity {
         // Load Default Frag : HomeFrag
         loadFragment(new HomeFragment());
 
-
-      // Go To Profile
+        //setProfileIcon();
+        // Go To Profile
         setAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +56,7 @@ public class Home extends AppCompatActivity {
             }
         });
     }
+
 
     // Load Fragment
     private void loadFragment(Fragment fragment) {

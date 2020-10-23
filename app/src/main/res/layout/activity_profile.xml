@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGrey"
     tools:context=".Activity.Register">
 
     <LinearLayout
@@ -20,18 +21,36 @@
 
     </LinearLayout>
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userProfile_image"
-        android:layout_width="190dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:clickable="false"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/lLProfileImage"
+        android:layout_below="@id/action_bar"
         android:layout_marginTop="90dp"
-        app:civ_border_width="2dp"
-        android:elevation="6dp"
-        app:civ_border_color="#FF000000"
-        tools:ignore="MissingClass" />
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_centerHorizontal="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp"
+            app:cardElevation="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userProfile_image"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:clickable="false"
+                android:layout_gravity="center"
+                app:civ_border_width="2dp"
+                android:elevation="6dp"
+                app:civ_border_color="#FF000000"
+                tools:ignore="MissingClass" />
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +61,7 @@
         android:layout_marginTop="40dp"
         android:padding="10dp"
         android:visibility="visible"
-        android:layout_below="@+id/userProfile_image">
+        android:layout_below="@+id/lLProfileImage">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -134,6 +153,7 @@
             android:background="#9C27B0" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -141,11 +161,12 @@
         android:orientation="vertical"
         android:layout_marginTop="40dp"
         android:visibility="gone"
-        android:layout_below="@+id/userProfile_image"
+        android:layout_below="@+id/lLProfileImage"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
+
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

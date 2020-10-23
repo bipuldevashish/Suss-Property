@@ -27,6 +27,7 @@ import com.example.bipuldevashish.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -50,8 +51,9 @@ public class SellFragment extends Fragment {
     FirebaseDatabase database;
     DatabaseReference reference;
     ArrayList<Uri> imageList = new ArrayList<>();
-    ArrayList<String> propertyImageArray = new ArrayList<>();
-    private String id;
+    private ArrayList<String> propertyImageArray = new ArrayList<>();
+    private String pushGeneratorKey;
+    ProgressDialog progressDialog;
     final String TAG = "SellFragment";
     StorageReference storageReference;
 
@@ -84,8 +86,8 @@ public class SellFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Postdetails");
 
-        id = reference.push().getKey();
-        storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(id);
+        pushGeneratorKey = reference.push().getKey();
+        storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(pushGeneratorKey);
 
         //spinner flatlayout implemented
         ArrayAdapter<CharSequence> myAdapterFlatLayout = ArrayAdapter.createFromResource(rootView.getContext(),
@@ -272,7 +274,6 @@ public class SellFragment extends Fragment {
         } else if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else {
-//            Toast.makeText(getContext(), "data filled properly", Toast.LENGTH_SHORT).show();
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Sit Back !");
             progressDialog.setMessage("While We Save Your Data");
@@ -285,8 +286,9 @@ public class SellFragment extends Fragment {
     }
 
     private void uploadData(String rate, String address, String plotArea, String description) {
+        String sellerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d(TAG, "sellerID = " + sellerID);
 
-        String pushGeneratorKey = reference.push().getKey();
         final HashMap<String, Object> UserNewsDb = new HashMap<>();
 
         UserNewsDb.put("type", spinnerTypeResult);
@@ -296,13 +298,14 @@ public class SellFragment extends Fragment {
         UserNewsDb.put("rate", rate);
         UserNewsDb.put("address", address);
         UserNewsDb.put("description", description);
+        UserNewsDb.put("Seller ID", sellerID);
 
-        for (int i = 0; i < propertyImageArray.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             String imageulr = propertyImageArray.get(i);
             UserNewsDb.put("image" + i, imageulr);
         }
 
-        reference.child(id).setValue(UserNewsDb).addOnCompleteListener(new OnCompleteListener<Void>() {
+
         reference.child(pushGeneratorKey).setValue(UserNewsDb).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

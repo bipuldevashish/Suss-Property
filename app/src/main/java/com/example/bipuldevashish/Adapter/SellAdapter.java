@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +13,6 @@ import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.SellViewHolder> {
 
@@ -39,7 +34,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         holder.housePlot.setText(model.getArea());
         holder.houseFace.setText(model.getFacing());
         holder.houseAboutDesc.setText(model.getDescription());
-        holder.housePrice.setText("₹ "+model.getRate());
+        holder.housePrice.setText("$ " + model.getRate());
 
 
     }

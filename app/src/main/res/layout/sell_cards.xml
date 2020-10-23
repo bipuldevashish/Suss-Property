@@ -25,7 +25,6 @@
         android:background="@drawable/image_curved_edge"
         android:layout_height="170dp"
         android:layout_marginBottom="5dp"
-
         android:id="@+id/houseImage"/>
 
     <LinearLayout
