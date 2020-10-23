@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:elevation="3dp"
+    app:cardCornerRadius="10dp">
+
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingTop="12dp"
+    android:paddingRight="12dp"
+    android:layout_marginBottom="12dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:background="@drawable/image_curved_edge"
+        android:layout_height="170dp"
+        android:layout_marginBottom="5dp"
+
+        android:id="@+id/houseImage"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:id="@+id/houseDetails"
+        android:layout_marginBottom="12dp"
+        android:layout_below="@+id/houseImage"
+
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sale"
+                android:id="@+id/houseType"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="22sp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:id="@+id/houseAddress"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="House Type"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4BHK  |"
+                    android:id="@+id/houseBHK"
+                    android:textColor="#000"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="  1200 sq.ft"
+                    android:id="@+id/housePlot"
+                    android:textSize="16sp"
+                    android:textColor="#000"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="House Face"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/houseFace"
+                android:text="North"
+                android:textSize="16sp"
+                android:textColor="#000"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingRight="20dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="500$"
+                android:id="@+id/housePrice"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="32sp"
+                android:textColor="#000"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/houseDetails"
+        android:id="@+id/aboutHead"
+        android:text="About"
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:fontFamily="@font/montserrat_bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/houseAboutDescription"
+        android:layout_below="@+id/aboutHead"
+        android:minLines="2"
+        android:layout_marginBottom="10dp"
+        android:textSize="16sp"/>
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingRight="12dp"-->
+<!--        android:paddingLeft="12dp"-->
+<!--        android:paddingTop="4dp"-->
+<!--        android:paddingBottom="4dp"-->
+<!--        android:background="@drawable/contact_btn_bg"-->
+<!--        android:layout_below="@id/houseAboutDescription"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginBottom="10dp">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:text="Contact"/>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:src="@drawable/ic_call"/>-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

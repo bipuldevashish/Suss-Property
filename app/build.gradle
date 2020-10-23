@@ -48,9 +48,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage'
     // Circular Imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
+    // Image Holder
     implementation 'com.squareup.picasso:picasso:2.71828'
-    
+    // Material Design Android
     implementation 'com.google.android.material:material:1.2.1'
+    // Firebase UI
+    implementation 'com.firebaseui:firebase-ui-database:6.2.1'
+    // Firebase Recycler View
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
   
 }
