@@ -27,6 +27,27 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
     }
 
+
+    // This code is used to get the key of the post on which we click or tap
+
+//    String key = getRef(position).getKey();
+//
+//    SharedPreferences sharedPref = mcontext.getSharedPreferences("myKey", MODE_PRIVATE);
+//    SharedPreferences.Editor editor = sharedPref.edit();
+//    editor.putString("keyValue", key);
+//    editor.apply();
+
+    //-----------------------------------------------
+
+    // use this code in the fragment or activity where u want to access that key of the repsective code for further database access
+
+    // SharedPreferences sharedPreferences = context.getSharedPreferences("myKey", MODE_PRIVATE);
+    //        value = sharedPreferences.getString("keyValue","");
+
+
+
+
+
     @Override
     protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull SellModel model) {
 
@@ -52,9 +73,11 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                         switch (item.getItemId()) {
                             case R.id.edit_post:
                                 //handle edit post click
+
                                 break;
                             case R.id.delete_post:
                                 //handle delete post click
+
                                 break;
                         }
                         return false;
