@@ -179,7 +179,7 @@ public class Profile extends AppCompatActivity {
         userPhoneNumberTextView.setText(mobile);
         etextName.setText(name);
         etextEmail.setText(email);
-        if (image == "" || image == null) {
+        if (image.length()==0) {
             imageViewproFilepic.setImageResource(R.drawable.profile);
             Log.d(TAG, "value of image inside if" + image);
         } else {
