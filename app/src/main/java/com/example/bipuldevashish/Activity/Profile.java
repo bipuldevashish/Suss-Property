@@ -180,7 +180,7 @@ public class Profile extends AppCompatActivity {
         etextName.setText(name);
         etextEmail.setText(email);
         if (image.length()==0) {
-            imageViewproFilepic.setImageResource(R.drawable.profile);
+            imageViewproFilepic.setImageResource(R.drawable.ic_profile);
             Log.d(TAG, "value of image inside if" + image);
         } else {
             Picasso.get().load(image).into(imageViewproFilepic);
