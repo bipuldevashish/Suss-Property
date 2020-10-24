@@ -71,11 +71,11 @@ public class Login extends AppCompatActivity {
 
         if (user_email.isEmpty())
         {
-            Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_SHORT).show();
+            emailNum.setError("Enter Mobile Number");
         }
         if (user_pass.isEmpty())
         {
-            Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
+            password.setError("Enter Password");
         }
         else
         {
@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity {
                     Intent goHome = new Intent(Login.this, Home.class);
                     goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(goHome);
-
+                    finish();
                 }
 
                 else

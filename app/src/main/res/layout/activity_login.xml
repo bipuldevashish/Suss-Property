@@ -77,13 +77,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/lightGrey">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/etMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="10"
                 android:hint="@string/mobile_number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,6 +97,7 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/password"/>
         </com.google.android.material.textfield.TextInputLayout>
 
