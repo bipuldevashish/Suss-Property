@@ -2,8 +2,10 @@ package com.example.bipuldevashish.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,18 +28,44 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull SellViewHolder holder, int position, @NonNull SellModel model) {
+    protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull SellModel model) {
 
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
-        holder.houseBHK.setText(model.getBhk()+" |  ");
+        holder.houseBHK.setText(model.getBhk() + " |  ");
         holder.housePlot.setText(model.getArea());
         holder.houseFace.setText(model.getFacing());
         holder.houseAboutDesc.setText(model.getDescription());
         holder.housePrice.setText("$ " + model.getRate());
 
-
+        holder.buttonViewOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(mcontext, holder.buttonViewOptions);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.postoptions);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit_post:
+                                //handle menu1 click
+                                break;
+                            case R.id.delete_post:
+                                //handle menu2 click
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                //displaying the popup
+                popup.show();
+            }
+        });
     }
+
 
     @NonNull
     @Override
@@ -63,6 +91,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         TextView houseFace;
         TextView housePrice;
         TextView houseAboutDesc;
+        TextView buttonViewOptions;
 
 
         public SellViewHolder(@NonNull View itemView) {
@@ -76,7 +105,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             houseFace = itemView.findViewById(R.id.houseFace);
             housePrice = itemView.findViewById(R.id.housePrice);
             houseAboutDesc = itemView.findViewById(R.id.houseAboutDescription);
-            
+            buttonViewOptions = itemView.findViewById(R.id.textViewOptions);
         }
     }
 }

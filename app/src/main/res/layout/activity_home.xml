@@ -48,12 +48,6 @@
     </FrameLayout>
 
 
-<!--    <Button-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Profile"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:id="@+id/setProfile"/>-->
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -103,9 +103,6 @@ public class SellFragment extends Fragment {
 
                 Log.d(TAG, "Value of position" + position);
                 spinnerFlatLayoutResult = parent.getItemAtPosition(position).toString();
-                if (position == 0) {
-                    Toast.makeText(getContext(), " Please select a property layout", Toast.LENGTH_SHORT).show();
-                }
 
             }
 
@@ -130,9 +127,6 @@ public class SellFragment extends Fragment {
 
                 Log.d(TAG, "Value of position" + position);
                 spinnerTypeResult = parent.getItemAtPosition(position).toString();
-                if (position == 0) {
-                    Toast.makeText(getContext(), " Please select a property Type", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -154,9 +148,6 @@ public class SellFragment extends Fragment {
 
                 Log.d(TAG, "Value of position" + position);
                 spinnerFacingResult = parent.getItemAtPosition(position).toString();
-                if (position == 0) {
-                    Toast.makeText(getContext(), " Please select a property Facing", Toast.LENGTH_SHORT).show();
-                }
 
             }
 
@@ -263,16 +254,23 @@ public class SellFragment extends Fragment {
         String plotArea = editPlotArea.getText().toString().trim();
         String description = editDescription.getText().toString().trim();
 
-        if (rate.isEmpty()) {
-            Toast.makeText(getContext(), "Please Enter Rate", Toast.LENGTH_SHORT).show();
-        } else if (address.isEmpty()) {
-            Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
+
+        if (spinnerTypeResult.isEmpty() || spinnerTypeResult.equals("Select Property Type")) {
+            Toast.makeText(getContext(), "Please Enter Property Type", Toast.LENGTH_SHORT).show();
+        } else if (spinnerFlatLayoutResult.isEmpty() || spinnerTypeResult.equals("Select BHK")) {
+            Toast.makeText(getContext(), "Please Select Property Layout", Toast.LENGTH_SHORT).show();
+        } else if (spinnerFacingResult.isEmpty() || spinnerTypeResult.equals("Select Facing Direction")) {
+            Toast.makeText(getContext(), "Please Enter PropertyType", Toast.LENGTH_SHORT).show();
         } else if (plotArea.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter The Plot Area", Toast.LENGTH_SHORT).show();
-        } else if (propertyImageArray.isEmpty()) {
-            Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
+        } else if (rate.isEmpty()) {
+            Toast.makeText(getContext(), "Please Enter Rate", Toast.LENGTH_SHORT).show();
         } else if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
+        } else if (address.isEmpty()) {
+            Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
+        } else if (propertyImageArray.isEmpty()) {
+            Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
         } else {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Sit Back !");

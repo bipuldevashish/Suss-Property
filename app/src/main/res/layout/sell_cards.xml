@@ -147,47 +147,48 @@
         android:layout_below="@+id/aboutHead"
         android:minLines="2"
         android:layout_marginBottom="10dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:paddingRight="12dp"-->
-<!--        android:paddingLeft="12dp"-->
-<!--        android:paddingTop="4dp"-->
-<!--        android:paddingBottom="4dp"-->
-<!--        android:background="@drawable/contact_btn_bg"-->
-<!--        android:layout_below="@id/houseAboutDescription"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_marginBottom="10dp">-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:id="@+id/linearLayoutContact"
+        android:background="@drawable/contact_btn_bg"
+        android:layout_below="@id/houseAboutDescription"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="Contact"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:text="Contact" />
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="25dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:src="@drawable/ic_call"/>-->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_call" />
 
-
-<!--    </LinearLayout>-->
-
-
+    </LinearLayout>
 
 
-
-
-
-
-
-
-
+    <TextView
+        android:id="@+id/textViewOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_8942"
+        android:gravity="end"
+        android:layout_below="@id/houseAboutDescription"
+        android:layout_toRightOf="@id/linearLayoutContact"
+        android:layout_alignParentRight="true"
+        android:textAppearance="?android:textAppearanceLarge" />
 
 
 </RelativeLayout>
