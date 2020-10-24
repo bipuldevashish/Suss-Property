@@ -1,6 +1,7 @@
 package com.example.bipuldevashish.Adapter;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,6 +74,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                         switch (item.getItemId()) {
                             case R.id.edit_post:
                                 //handle edit post click
+
 
                                 break;
                             case R.id.delete_post:
