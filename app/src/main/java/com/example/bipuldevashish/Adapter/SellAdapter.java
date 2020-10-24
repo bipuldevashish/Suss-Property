@@ -51,10 +51,10 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_post:
-                                //handle menu1 click
+                                //handle edit post click
                                 break;
                             case R.id.delete_post:
-                                //handle menu2 click
+                                //handle delete post click
                                 break;
                         }
                         return false;
