@@ -163,4 +163,7 @@ public class Register extends AppCompatActivity {
     }
 
 
+    public void goBack(View view) {
+        onBackPressed();
+    }
 }

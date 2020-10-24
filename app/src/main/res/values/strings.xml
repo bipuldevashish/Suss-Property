@@ -22,4 +22,8 @@
     <string name="login">Login</string>
     <string name="register_with_us"> Register With Us.</string>
     <string name="no_account">No Account?</string>
+    <string name="register">Register</string>
+    <string name="enterName">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="get_onboard">Get Onboard!</string>
 </resources>

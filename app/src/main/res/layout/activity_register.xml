@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     tools:context=".Activity.Register">
 
 
@@ -11,42 +14,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:id="@+id/action_bar">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/colorAccent"
+            android:onClick="goBack"
             android:id="@+id/goBack" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:text="Get Onboard !"
-            android:textColor="#000"
+            android:text="@string/get_onboard"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="REGISTER"
+        android:text="@string/register"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="#000000"
+        android:textColor="@color/colorAccent"
         android:gravity="center"
         android:layout_below="@+id/action_bar"
         android:layout_marginTop="30dp"
         android:id="@+id/loginText"
-        android:textSize="28sp"/>
+        android:textSize="20sp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/registerScroll"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="14dp"
         android:layout_below="@id/loginText">
 
         <LinearLayout
@@ -54,133 +68,69 @@
             android:layout_height="wrap_content"
             android:id="@+id/registerForm"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:gravity="center"
-            android:paddingRight="10dp">
+            android:gravity="center">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:contentPadding="5dp"
-                app:cardElevation="5dp"
-                android:layout_margin="4dp"
-                android:id="@+id/NameCard"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:textSize="14sp"
-                    android:text="Name"/>
-
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/etName"
-                    android:backgroundTint="#B8B8B8"
-                    android:layout_marginTop="10dp"
-                    android:textSize="18sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="@string/enterName"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:contentPadding="5dp"
-                app:cardElevation="5dp"
-                android:layout_margin="4dp"
-                android:id="@+id/emailCard"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Email Id"/>
-
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/etEmail"
-                    android:backgroundTint="#B8B8B8"
-                    android:textSize="18sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:contentPadding="5dp"
-                app:cardElevation="5dp"
-                android:layout_margin="4dp"
-                android:id="@+id/MobileCard"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Mobile Number"/>
-
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/etMobile"
-                    android:backgroundTint="#B8B8B8"
-                    android:textSize="18sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:hint="@string/mobile_number"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.cardview.widget.CardView>
-
-
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                app:contentPadding="5dp"
-                app:cardElevation="5dp"
-                android:layout_margin="4dp"
-                android:id="@+id/passwordCard"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Password"/>
-
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#B8B8B8"
                     android:id="@+id/etPassword"
-                    android:textSize="18sp"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout"
                 android:layout_width="match_parent"
-                app:contentPadding="5dp"
-                app:cardElevation="5dp"
-                android:layout_margin="4dp"
-                android:id="@+id/confirmCard"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="Confirm Password"/>
-
                 <EditText
+                    android:id="@+id/etCpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#B8B8B8"
-                    android:id="@+id/etCpassword"
-                    android:textSize="18sp"/>
-
-            </androidx.cardview.widget.CardView>
-
+                    android:inputType="textPassword"
+                    android:hint="@string/confirm_password"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>
@@ -190,17 +140,16 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="16dp"
+        android:text="@string/register"
         android:id="@+id/registerBtn"
-        android:minHeight="45dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="18dp"
-        android:textColor="#fff"
-        android:background="#9C27B0"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"/>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
