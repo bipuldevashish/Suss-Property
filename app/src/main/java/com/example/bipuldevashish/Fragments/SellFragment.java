@@ -1,10 +1,8 @@
 package com.example.bipuldevashish.Fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -171,6 +168,7 @@ public class SellFragment extends Fragment {
         buttonAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getContext(), "Please Tap and hold the image", Toast.LENGTH_SHORT).show();
                 pickFromGallery();
             }
         });
@@ -204,8 +202,9 @@ public class SellFragment extends Fragment {
                     Uri imageUri = data.getClipData().getItemAt(currentImageSelected).getUri();
                     imageList.add(imageUri);
                     Log.d(TAG, "value of currentImageSelected = " + currentImageSelected);
+                    Log.d(TAG, "value of imageList = " + imageList.size());
                     currentImageSelected = currentImageSelected + 1;
-                    uploadImage();
+
                 }
             } else {
                 Toast.makeText(getContext(), "Please select exactly 5 Images", Toast.LENGTH_SHORT).show();
@@ -220,8 +219,7 @@ public class SellFragment extends Fragment {
 
         Log.d(TAG, "Entering uploadImage()");
 
-        int uploadCount;
-        for (uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
+        for (int uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
 
             Uri individualImage = imageList.get(uploadCount);
             final StorageReference imageName = storageReference.child("image" + individualImage.getLastPathSegment());
@@ -237,6 +235,8 @@ public class SellFragment extends Fragment {
                             String url = String.valueOf(uri);
                             propertyImageArray.add(url);
 
+                            Log.d(TAG, "value of propertyImageArray after uploading " + propertyImageArray);
+
                         }
                     });
                 }
@@ -244,6 +244,7 @@ public class SellFragment extends Fragment {
 
 
         }
+
     }
 
 
@@ -269,7 +270,8 @@ public class SellFragment extends Fragment {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else if (address.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
-        } else if (propertyImageArray.isEmpty()) {
+        } else if (imageList.isEmpty()) {
+            Log.d(TAG, "value of image list = " + imageList.size());
             Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
         } else {
             progressDialog = new ProgressDialog(getActivity());
@@ -277,8 +279,8 @@ public class SellFragment extends Fragment {
             progressDialog.setMessage("While We Save Your Data");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
+            uploadImage();
             uploadData(rate, address, plotArea, description);
-
         }
 
     }
@@ -288,6 +290,7 @@ public class SellFragment extends Fragment {
         Log.d(TAG, "sellerID = " + sellerID);
 
         final HashMap<String, Object> UserNewsDb = new HashMap<>();
+        final HashMap<String, Object> imageLink = new HashMap<>();
 
         UserNewsDb.put("type", spinnerTypeResult);
         UserNewsDb.put("bhk", spinnerFlatLayoutResult);
@@ -300,7 +303,7 @@ public class SellFragment extends Fragment {
 
         for (int i = 0; i < 5; i++) {
             String imageulr = propertyImageArray.get(i);
-            UserNewsDb.put("image" + i, imageulr);
+            imageLink.put("image" + i, imageulr);
         }
 
 
@@ -308,10 +311,19 @@ public class SellFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    progressDialog.dismiss();
-                    Intent goHome = new Intent(getActivity(), Home.class);
-                    goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(goHome);
+
+                    reference.child(pushGeneratorKey).child("images").setValue(imageLink).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();
+                                Intent goHome = new Intent(getActivity(), Home.class);
+                                goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(goHome);
+                            }
+                        }
+                    });
+
                 } else {
                     Log.d("RegisterActivity", "Couldnt save Seller details");
                     Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -319,7 +331,6 @@ public class SellFragment extends Fragment {
                 }
             }
         });
-
 
     }
 }
