@@ -147,7 +147,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
         //NOTE : please use with country code first 2digits without plus signed
         try {
-            String mobile = "+918235023944";
+            String mobile = "+919504901900";
             String msg = "Hello, I just saw your post on Suss Property App and I am interested.Your property at "+ address +" with "+ bhk;
 
             mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + mobile + "&text=" + msg)));
