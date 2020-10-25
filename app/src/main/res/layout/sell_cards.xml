@@ -177,16 +177,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="10sp"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:text="Contact" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_call" />
+            android:text="Contact Agent" />
 
     </LinearLayout>
 

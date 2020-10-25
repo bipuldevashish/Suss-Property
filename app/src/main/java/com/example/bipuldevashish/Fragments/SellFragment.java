@@ -244,8 +244,6 @@ public class SellFragment extends Fragment {
                     });
                 }
             });
-
-
         }
 
     }
@@ -301,7 +299,7 @@ public class SellFragment extends Fragment {
         UserNewsDb.put("rate", rate);
         UserNewsDb.put("address", address);
         UserNewsDb.put("description", description);
-        UserNewsDb.put("Seller ID", sellerID);
+        UserNewsDb.put("sellerID", sellerID);
 
         for (int i = 0; i < 5; i++) {
             String imageulr = propertyImageArray.get(i);

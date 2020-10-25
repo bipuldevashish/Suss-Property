@@ -1,38 +1,34 @@
 package com.example.bipuldevashish.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bipuldevashish.Fragments.EditPostFragment;
-import com.example.bipuldevashish.Fragments.SellFragment;
+import com.example.bipuldevashish.Activity.Message;
 import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.SellViewHolder> {
+import static android.content.Context.MODE_PRIVATE;
 
-    private static final String TAG = "EditPostFragment";
+public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.SellViewHolder> {
+
     Context mcontext;
-    TextView tvFragmentName;
-    public String postKey;
 
-    public SellAdapter(@NonNull FirebaseRecyclerOptions<SellModel> options) {
+
+    public SellAdapter(@NonNull FirebaseRecyclerOptions<SellModel> options)
+    {
         super(options);
 
     }
@@ -49,9 +45,25 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.
         holder.houseAboutDesc.setText(model.getDescription());
         holder.housePrice.setText("$ " + model.getRate());
 
+        holder.contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String key = getRef(position).getKey();
+
+                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("PostKey", key);
+                editor.apply();
+
+                mcontext.startActivity(new Intent(mcontext, Message.class));
+
+            }
+        });
+
         holder.buttonViewOptions.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
+            public void onClick(View v) {
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(mcontext, holder.buttonViewOptions);
                 //inflating menu from xml resource
@@ -63,12 +75,11 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.
                         switch (item.getItemId()) {
                             case R.id.edit_post:
                                 //handle edit post click
-                                loadFragment(new EditPostFragment());
+
                                 break;
                             case R.id.delete_post:
                                 //handle delete post click
-                                postKey = getRef(position).getKey();
-                                deletePost(postKey);
+
                                 break;
                         }
                         return false;
@@ -80,31 +91,14 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.
         });
     }
 
-    //To load fragment
-    private void loadFragment(Fragment fragment) {
-        AppCompatActivity activity = (AppCompatActivity) mcontext;
-        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentFrame, fragment);
-        transaction.commit();
-    }
-
-    //To delete the post
-    private void deletePost(String key) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(key);
-        ref.removeValue();
-
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(key);
-        storageReference.delete();
-    }
-
 
     @NonNull
     @Override
     public SellViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.sell_cards, parent, false);
+                 .from(parent.getContext())
+                 .inflate(R.layout.sell_cards,parent,false);
 
         // To get current context
         mcontext = parent.getContext();
@@ -123,6 +117,8 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.
         TextView housePrice;
         TextView houseAboutDesc;
         TextView buttonViewOptions;
+        LinearLayout contact;
+
 
 
         public SellViewHolder(@NonNull View itemView) {
@@ -137,6 +133,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.
             housePrice = itemView.findViewById(R.id.housePrice);
             houseAboutDesc = itemView.findViewById(R.id.houseAboutDescription);
             buttonViewOptions = itemView.findViewById(R.id.textViewOptions);
+            contact = itemView.findViewById(R.id.linearLayoutContact);
         }
     }
 }

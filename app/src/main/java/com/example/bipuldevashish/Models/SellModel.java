@@ -9,10 +9,20 @@ public class SellModel {
     private String facing;
     private String rate;
     private String type;
+    private String sellerId;
+
+
 
     public SellModel() {
     }
 
+    public String getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 
     public String getAddress() {
         return address;
