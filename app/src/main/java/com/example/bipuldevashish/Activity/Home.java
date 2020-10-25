@@ -10,13 +10,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bipuldevashish.Fragments.EditPostFragment;
 import com.example.bipuldevashish.Fragments.HomeFragment;
 import com.example.bipuldevashish.Fragments.SellFragment;
 import com.example.bipuldevashish.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +41,7 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // UI LINKS
-        CircleImageView setAccount = findViewById(R.id.userProfileImage);
+        final CircleImageView setAccount = findViewById(R.id.userProfileImage);
         tvFragmentName = findViewById(R.id.fragmentName);
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -52,11 +55,39 @@ public class Home extends AppCompatActivity {
         setAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Home.this, Profile.class));
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(getApplicationContext(), setAccount);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.button_logout);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_profile:
+                                //handle edit post click
+                                startActivity(new Intent(Home.this, Profile.class));
+                                break;
+                            case R.id.nav_logout:
+                                //handle delete post click
+                                signout();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                //displaying the popup
+                popup.show();
             }
         });
+
     }
 
+    private void signout() {
+        FirebaseAuth mAUTH = FirebaseAuth.getInstance();
+        mAUTH.signOut();
+        startActivity(new Intent(Home.this, Login.class));
+    }
 
     // Load Fragment
     private void loadFragment(Fragment fragment) {

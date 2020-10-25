@@ -1,9 +1,13 @@
 package com.example.bipuldevashish.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,11 +21,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.bipuldevashish.Activity.Profile;
 import com.example.bipuldevashish.Adapter.SellAdapter;
 import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -41,7 +49,7 @@ public class EditPostFragment extends Fragment {
     ProgressDialog progressDialog;
     final String TAG = "EditPostFragment";
     StorageReference storageReference;
-    String key;
+    String value;
 
 
     @Override
@@ -68,10 +76,17 @@ public class EditPostFragment extends Fragment {
         editDescription = parentView.findViewById(R.id.edText_descriptionEditPost);
         editRate = parentView.findViewById(R.id.edText_rateEditPost);
 
+        //shared preference
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("post", Context.MODE_PRIVATE);
+        value = sharedPreferences.getString("PostKey", "");
+
+
         // firebase linkage
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Postdetails");
+        Log.d(TAG, "value of value = " + value);
+        reference = database.getReference().child("Postdetails").child(value);
 
+        Log.d(TAG, "postkey = " + value);
 
         //spinner flatlayout implemented
         ArrayAdapter<CharSequence> myAdapterFlatLayout = ArrayAdapter.createFromResource(parentView.getContext(),
@@ -80,21 +95,23 @@ public class EditPostFragment extends Fragment {
         myAdapterFlatLayout.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinnerFlatLayout.setAdapter(myAdapterFlatLayout);
-        spinnerFlatLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-                Log.d(TAG, "Value of position" + position);
-                spinnerFlatLayoutResult = parent.getItemAtPosition(position).toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getContext(), " Please select a property layout option", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        spinnerFlatLayout.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//
+//                Log.d(TAG, "Value of position" + position);
+//                spinnerFlatLayoutResult = parent.getItemAtPosition(position).toString();
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Toast.makeText(getContext(), " Please select a property layout option", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //spinner Property Type implemented
         ArrayAdapter<CharSequence> myAdapterType = ArrayAdapter.createFromResource(parentView.getContext(),
@@ -104,20 +121,23 @@ public class EditPostFragment extends Fragment {
 
         // Apply the adapter to the spinner
         spinnerType.setAdapter(myAdapterType);
-        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
 
-                Log.d(TAG, "Value of position" + position);
-                spinnerTypeResult = parent.getItemAtPosition(position).toString();
-            }
+//        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//
+//                Log.d(TAG, "Value of position" + position);
+//                spinnerTypeResult = parent.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Toast.makeText(getContext(), " Please select a property type option", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getContext(), " Please select a property type option", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         //spinner property facing implemented
         ArrayAdapter<CharSequence> myAdapterFacing = ArrayAdapter.createFromResource(parentView.getContext(),
@@ -126,27 +146,89 @@ public class EditPostFragment extends Fragment {
         myAdapterFacing.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinnerFacing.setAdapter(myAdapterFacing);
-        spinnerFacing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.d(TAG, "Value of position" + position);
-                spinnerFacingResult = parent.getItemAtPosition(position).toString();
 
-            }
+//        spinnerFacing.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Log.d(TAG, "Value of position" + position);
+//                spinnerFacingResult = parent.getItemAtPosition(position).toString();
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(getContext(), " Please select a facing option", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         setPreviousData();
         return parentView;
     }
 
     private void setPreviousData() {
+        reference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-        Log.d(TAG, "postkey = " + key);
+                        // [START_EXCLUDE]
+                        if (dataSnapshot.exists()) {
+
+                            // fetching data from firebase
+                            String rate = dataSnapshot.child("rate").getValue(String.class);
+                            String address = dataSnapshot.child("address").getValue(String.class);
+                            String description = dataSnapshot.child("description").getValue(String.class);
+                            String area = dataSnapshot.child("area").getValue(String.class);
+                            String bhk = dataSnapshot.child("bhk").getValue(String.class);
+                            String type = dataSnapshot.child("type").getValue(String.class);
+                            String facing = dataSnapshot.child("facing").getValue(String.class);
+                            Log.d(TAG, "update database working Moving to setProfile");
+
+
+                            setEditFragment(rate, address, description, area, bhk, type, facing);
+
+                            progressDialog.dismiss();
+
+                        } else {
+
+                            Log.d(TAG, "User " + " is unexpectedly null");
+                            Toast.makeText(getContext(),
+                                    "Error: could not fetch user.",
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        Log.w(TAG, "getUser:onCancelled", error.toException());
+                    }
+                });
+    }
+
+    private void setEditFragment(String rate, String address, String description, String area, String bhk, String type, String facing) {
+        int item_pos = 0;
+        int item_count = 0;
+        int posi = 0;
+
+//        String[] property_type = getResources().getStringArray(R.array.propertyType);
+//        item_count = property_type.length;
+//        Log.d(TAG, "length of property " + item_count);
+//
+//        while (item_pos < item_count) {
+//            // Compare with the search text
+//            if ( property_type[item_pos].equals(type))
+//                posi = item_pos;
+//            item_pos +=1;
+//        }
+//        spinnerType.setSelection(posi);
+
+        editRate.setText(rate);
+        editAddress.setText(address);
+        editPlotArea.setText(area);
+        editDescription.setText(description);
     }
 }
