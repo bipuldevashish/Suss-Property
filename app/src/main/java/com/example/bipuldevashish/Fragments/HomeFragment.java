@@ -24,8 +24,6 @@ public class HomeFragment extends Fragment {
     DatabaseReference sellDetailsNode;
     RecyclerView sellPostRecyclerView;
     SellAdapter sellAdapter;
-
-
     Context context;
 
 

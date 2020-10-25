@@ -20,12 +20,15 @@
     android:paddingRight="12dp"
     android:layout_marginBottom="12dp">
 
-    <ImageView
+    <com.denzcoskun.imageslider.ImageSlider
         android:layout_width="match_parent"
-        android:background="@drawable/image_curved_edge"
-        android:layout_height="170dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/houseImage"/>
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/houseImage"
+        app:auto_cycle="true"
+        app:corner_radius="5"
+        app:period="2000"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -166,6 +169,7 @@
         android:layout_height="25dp"
         android:src="@drawable/ic_whatsapp"
         android:id="@+id/whatsapp"
+
         android:layout_below="@+id/houseAboutDescription"/>
 
 
@@ -175,7 +179,6 @@
         android:layout_height="wrap_content"
         android:text="@string/_8942"
         android:gravity="end"
-        android:visibility="gone"
         android:layout_below="@id/houseAboutDescription"
         android:layout_toRightOf="@id/whatsapp"
         android:layout_alignParentRight="true"

@@ -56,5 +56,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:6.2.1'
     // Firebase Recycler View
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // Slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
   
 }

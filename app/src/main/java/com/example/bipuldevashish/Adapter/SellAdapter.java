@@ -23,6 +23,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.bipuldevashish.Activity.Message;
 import com.example.bipuldevashish.Fragments.EditPostFragment;
 import com.example.bipuldevashish.Models.SellModel;
@@ -39,12 +41,16 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.SellViewHolder> {
 
     Context mcontext;
     String postKey;
+    Iterable<DataSnapshot> imageList;
 
     public SellAdapter(@NonNull FirebaseRecyclerOptions<SellModel> options)
     {
@@ -58,6 +64,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
         // Show Edit Delete Option Only When the Seller Post equals to UserId
         popUpDisplay(holder,position);
+        getImageLinks(holder,position);
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
         holder.houseBHK.setText(model.getBhk() + " |  ");
@@ -71,14 +78,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             public void onClick(View view) {
 
                 String key = getRef(position).getKey();
-
-
-
-//                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPref.edit();
-//                editor.putString("PostKey", key);
-//                editor.apply();
-                  fetchSellerNumber(key,model);
+                fetchSellerNumber(key,model);
 
 
             }
@@ -120,6 +120,40 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         });
     }
 
+    private void getImageLinks(final SellViewHolder holder, int position) {
+
+        DatabaseReference propImageRef = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(getRef(position).getKey()).child("images");
+
+        propImageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String one = (String) snapshot.child("image0").getValue();
+                String two = (String) snapshot.child("image1").getValue();
+                String three = (String) snapshot.child("image2").getValue();
+                String four = (String) snapshot.child("image3").getValue();
+                String five = (String) snapshot.child("image4").getValue();
+
+                List<SlideModel> slideModels = new ArrayList<>();
+                slideModels.add(new SlideModel(one,"1"));
+                slideModels.add(new SlideModel(two,"2"));
+                slideModels.add(new SlideModel(three,"3"));
+                slideModels.add(new SlideModel(four,"4"));
+                slideModels.add(new SlideModel(five,"5"));
+                holder.slider.setImageList(slideModels,true);
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void popUpDisplay(final SellViewHolder holder, int position) {
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,7 +166,6 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String sellerId = (String) snapshot.child("sellerID").getValue();
-
                 checkSameOrNot(currentUserId,sellerId,holder);
             }
 
@@ -214,6 +247,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         TextView houseAboutDesc;
         TextView popUpOptions;
         ImageView contact;
+        ImageSlider slider;
 
 
 
@@ -230,6 +264,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             houseAboutDesc = itemView.findViewById(R.id.houseAboutDescription);
             popUpOptions = itemView.findViewById(R.id.popUpOptions);
             contact = itemView.findViewById(R.id.whatsapp);
+            slider = itemView.findViewById(R.id.houseImage);
         }
     }
 }

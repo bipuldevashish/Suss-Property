@@ -66,7 +66,7 @@ public class Splash extends AppCompatActivity {
                             } else {
 
                                 // Doesn't Exists : Go To Register
-                                startActivity(new Intent(Splash.this, Register.class));
+                                startActivity(new Intent(Splash.this,Register.class));
                                 finish();
                             }
                         }
