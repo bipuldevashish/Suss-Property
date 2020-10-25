@@ -8,7 +8,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="flat_layout">Property Layout</string>
-    <string name="plot_area">Plot Area</string>
+    <string name="plot_area">Plot Area in sqft</string>
     <string name="description">Description</string>
     <string name="save_and_continue">Post ad</string>
     <string name="rate">Rate</string>
@@ -27,4 +27,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="get_onboard">Get Onboard!</string>
     <string name="home">Home</string>
+    <string name="address">Address</string>
 </resources>

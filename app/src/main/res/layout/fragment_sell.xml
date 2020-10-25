@@ -10,8 +10,6 @@
         android:id="@+id/sellPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="60dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -47,7 +45,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
@@ -67,7 +64,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
@@ -86,7 +82,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
                         android:background="@color/lightGrey">
 
                         <Spinner
@@ -94,78 +89,69 @@
                             android:layout_height="40dp"
                             android:id="@+id/spinner_facing" />
                     </LinearLayout>
-
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/plot_area"
-                        android:textSize="14sp" />
+                        android:hint="Plot Area in sqft"
+                        android:paddingTop="5dp"
+                        android:background="@color/lightGrey">
 
-                    <EditText
-                        android:id="@+id/edText_areaInSqrft"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/lightGrey"
-                        android:paddingLeft="8dp"
-                        android:hint="Enter the area in sqft"
-                        android:inputType="numberDecimal"
-                        android:textSize="18sp" />
+                        <EditText
+                            android:id="@+id/edText_areaInSqrft"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textSize="18sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/rate"
-                        android:textSize="14sp" />
+                        android:hint="Rate"
+                        android:paddingTop="5dp"
+                        android:background="@color/lightGrey">
 
-                    <EditText
-                        android:id="@+id/edText_rate"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="6dp"
-                        android:textSize="18sp"
-                        android:hint="Enter the price"
-                        android:background="@color/lightGrey"
-                        android:inputType="number"
-                        android:paddingLeft="8dp" />
-
-                    <TextView
+                        <EditText
+                            android:id="@+id/edText_rate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textSize="18sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/description"
-                        android:textSize="14sp" />
+                        android:hint="@string/description"
+                        android:paddingTop="5dp"
+                        android:background="@color/lightGrey">
 
-                    <EditText
-                        android:id="@+id/edText_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        android:background="@color/lightGrey"
-                        android:layout_marginTop="10dp"
-                        android:paddingLeft="8dp"
-                        android:inputType="textCapSentences"
-                        android:hint="Tell us more about your property"
-                        android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/edText_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:textSize="18sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Address"
-                        android:textSize="14sp" />
+                        android:hint="@string/address"
+                        android:paddingTop="5dp"
+                        android:background="@color/lightGrey">
 
-                    <EditText
-                        android:id="@+id/edText_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:hint="Address of the property "
-                        android:layout_marginTop="6dp"
-                        android:background="@color/lightGrey"
-                        android:inputType="textCapSentences"
-                        android:paddingLeft="8dp" />
+                        <EditText
+                            android:id="@+id/edText_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:textSize="18sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -180,7 +166,6 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:drawablePadding="15dp"
-                        android:layout_marginTop="10dp"
                         android:background="@color/lightGrey"
                         android:padding="15dp"
                         android:hint="Attach"
