@@ -78,7 +78,7 @@ public class Home extends AppCompatActivity {
 
             }
             else if(id == R.id.nav_sell) {
-                tvFragmentName.setText("Sell");
+                tvFragmentName.setText("Property Details");
                 loadFragment(new SellFragment());
                 return true;
             }

@@ -215,11 +215,12 @@ public class SellFragment extends Fragment {
     }
 
 
-    private void uploadImage() {
+    private void uploadImage(final String rate, final String plotArea, final String address, final String description) {
 
         Log.d(TAG, "Entering uploadImage()");
 
-        for (int uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
+        int uploadCount;
+        for (uploadCount = 0; uploadCount < imageList.size(); uploadCount++) {
 
             Uri individualImage = imageList.get(uploadCount);
             final StorageReference imageName = storageReference.child("image" + individualImage.getLastPathSegment());
@@ -234,7 +235,9 @@ public class SellFragment extends Fragment {
                         public void onSuccess(Uri uri) {
                             String url = String.valueOf(uri);
                             propertyImageArray.add(url);
-
+                            if (propertyImageArray.size() == 5) {
+                                uploadData(rate, plotArea, address, description);
+                            }
                             Log.d(TAG, "value of propertyImageArray after uploading " + propertyImageArray);
 
                         }
@@ -279,8 +282,7 @@ public class SellFragment extends Fragment {
             progressDialog.setMessage("While We Save Your Data");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            uploadImage();
-            uploadData(rate, address, plotArea, description);
+            uploadImage(rate, address, plotArea, description);
         }
 
     }

@@ -3,12 +3,206 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.EditPostFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
+        android:id="@+id/editPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="60dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/lightGrey">
+
+        <ScrollView
+            android:id="@+id/scrollViewEditPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:focusable="true"
+            android:elevation="6dp"
+            android:focusableInTouchMode="true">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_fragmentEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ltFragmentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/property_type"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:id="@+id/spinner_typeEditPost"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="6dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/flat_layout"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/spinner_flatLayoutEditPost" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Facing"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/lightGrey">
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/spinner_facingEditPost" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/plot_area"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_areaEditPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/lightGrey"
+                        android:paddingLeft="8dp"
+                        android:hint="Enter the area in sqft"
+                        android:inputType="numberDecimal"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/rate"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_rateEditPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="6dp"
+                        android:textSize="18sp"
+                        android:hint="Enter the price"
+                        android:background="@color/lightGrey"
+                        android:inputType="number"
+                        android:paddingLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/description"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_descriptionEditPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:background="@color/lightGrey"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="8dp"
+                        android:inputType="textCapSentences"
+                        android:hint="Tell us more about your property"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Address"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edText_addressEditPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:hint="Address of the property "
+                        android:layout_marginTop="6dp"
+                        android:background="@color/lightGrey"
+                        android:inputType="textCapSentences"
+                        android:paddingLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Select 5 pics of the property"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/buttonAttachmentEditPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="15dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/lightGrey"
+                        android:padding="15dp"
+                        android:hint="Attach"
+                        android:clickable="true"
+                        app:drawableLeftCompat="@drawable/ic_baseline_attach_file_24" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/saveDetails"
+                        android:textColor="#FFFFFF"
+                        android:background="@color/colorAccent"
+                        android:text="save details" />7
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+
+    </RelativeLayout>
 
 </FrameLayout>

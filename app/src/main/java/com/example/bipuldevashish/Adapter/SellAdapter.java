@@ -1,7 +1,6 @@
 package com.example.bipuldevashish.Adapter;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,47 +9,37 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bipuldevashish.Fragments.EditPostFragment;
+import com.example.bipuldevashish.Fragments.SellFragment;
 import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.SellViewHolder> {
+public class SellAdapter extends FirebaseRecyclerAdapter<SellModel, SellAdapter.SellViewHolder> {
 
+    private static final String TAG = "EditPostFragment";
     Context mcontext;
+    TextView tvFragmentName;
+    public String postKey;
 
-
-    public SellAdapter(@NonNull FirebaseRecyclerOptions<SellModel> options)
-    {
+    public SellAdapter(@NonNull FirebaseRecyclerOptions<SellModel> options) {
         super(options);
 
     }
 
 
-    // This code is used to get the key of the post on which we click or tap
-
-//    String key = getRef(position).getKey();
-//
-//    SharedPreferences sharedPref = mcontext.getSharedPreferences("myKey", MODE_PRIVATE);
-//    SharedPreferences.Editor editor = sharedPref.edit();
-//    editor.putString("keyValue", key);
-//    editor.apply();
-
-    //-----------------------------------------------
-
-    // use this code in the fragment or activity where u want to access that key of the repsective code for further database access
-
-    // SharedPreferences sharedPreferences = context.getSharedPreferences("myKey", MODE_PRIVATE);
-    //        value = sharedPreferences.getString("keyValue","");
-
-
-
-
-
     @Override
-    protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull SellModel model) {
+    protected void onBindViewHolder(@NonNull final SellViewHolder holder, final int position, @NonNull SellModel model) {
 
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
@@ -62,7 +51,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
         holder.buttonViewOptions.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(mcontext, holder.buttonViewOptions);
                 //inflating menu from xml resource
@@ -74,12 +63,12 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                         switch (item.getItemId()) {
                             case R.id.edit_post:
                                 //handle edit post click
-
-
+                                loadFragment(new EditPostFragment());
                                 break;
                             case R.id.delete_post:
                                 //handle delete post click
-
+                                postKey = getRef(position).getKey();
+                                deletePost(postKey);
                                 break;
                         }
                         return false;
@@ -91,14 +80,31 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         });
     }
 
+    //To load fragment
+    private void loadFragment(Fragment fragment) {
+        AppCompatActivity activity = (AppCompatActivity) mcontext;
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentFrame, fragment);
+        transaction.commit();
+    }
+
+    //To delete the post
+    private void deletePost(String key) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(key);
+        ref.removeValue();
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(key);
+        storageReference.delete();
+    }
+
 
     @NonNull
     @Override
     public SellViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater
-                 .from(parent.getContext())
-                 .inflate(R.layout.sell_cards,parent,false);
+                .from(parent.getContext())
+                .inflate(R.layout.sell_cards, parent, false);
 
         // To get current context
         mcontext = parent.getContext();
