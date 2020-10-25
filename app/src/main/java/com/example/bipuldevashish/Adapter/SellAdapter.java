@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +56,8 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
     @Override
     protected void onBindViewHolder(@NonNull final SellViewHolder holder, final int position, @NonNull final SellModel model) {
 
+        // Show Edit Delete Option Only When the Seller Post equals to UserId
+        popUpDisplay(holder,position);
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
         holder.houseBHK.setText(model.getBhk() + " |  ");
@@ -76,12 +81,10 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                   fetchSellerNumber(key,model);
 
 
-
-
             }
         });
 
-        holder.buttonViewOptions.setOnClickListener(new View.OnClickListener() {
+        holder.popUpOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
@@ -89,7 +92,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                 editor.putString("newKey", getRef(position).getKey());
                 editor.apply();
                 //creating a popup menu
-                PopupMenu popup = new PopupMenu(mcontext, holder.buttonViewOptions);
+                PopupMenu popup = new PopupMenu(mcontext, holder.popUpOptions, Gravity.RIGHT);
                 //inflating menu from xml resource
                 popup.inflate(R.menu.postoptions);
                 //adding click listener
@@ -117,23 +120,20 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         });
     }
 
-    private void fetchSellerNumber(String key, final SellModel model) {
+    private void popUpDisplay(final SellViewHolder holder, int position) {
 
-        DatabaseReference sellNumberRef = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(key);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String currentUserId = firebaseUser.getUid();
 
-        sellNumberRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference sellerIdRef = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(getRef(position).getKey());
+
+        sellerIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                String sellerId = (String) snapshot.child("sellerID").getValue();
 
-
-                String bhk = model.getBhk();
-                String type = model.getType();
-                String address = model.getAddress();
-
-
-                sendMessageWhatsapp(bhk,type,address);
-
+                checkSameOrNot(currentUserId,sellerId,holder);
             }
 
             @Override
@@ -143,9 +143,21 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         });
     }
 
-    private void sendMessageWhatsapp(String bhk, String type, String address) {
+    // if same then show popup menu
+    private void checkSameOrNot(String currentUserId, String sellerId, SellViewHolder holder) {
 
-        //NOTE : please use with country code first 2digits without plus signed
+        if (currentUserId.equals(sellerId))
+        {
+            holder.popUpOptions.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void fetchSellerNumber(String key, final SellModel model) {
+
+
+        String bhk = model.getBhk();
+        String address = model.getAddress();
+
         try {
             String mobile = "+919504901900";
             String msg = "Hello, I just saw your post on Suss Property App and I am interested.Your property at "+ address +" with "+ bhk;
@@ -154,7 +166,11 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         }catch (Exception e){
             Toast.makeText(mcontext, "Install Whatsapp", Toast.LENGTH_SHORT).show();
         }
+
+
     }
+
+
 
     private void loadFragment(Fragment fragment) {
         AppCompatActivity activity = (AppCompatActivity) mcontext;
@@ -196,7 +212,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         TextView houseFace;
         TextView housePrice;
         TextView houseAboutDesc;
-        TextView buttonViewOptions;
+        TextView popUpOptions;
         ImageView contact;
 
 
@@ -212,7 +228,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             houseFace = itemView.findViewById(R.id.houseFace);
             housePrice = itemView.findViewById(R.id.housePrice);
             houseAboutDesc = itemView.findViewById(R.id.houseAboutDescription);
-            buttonViewOptions = itemView.findViewById(R.id.textViewOptions);
+            popUpOptions = itemView.findViewById(R.id.popUpOptions);
             contact = itemView.findViewById(R.id.whatsapp);
         }
     }

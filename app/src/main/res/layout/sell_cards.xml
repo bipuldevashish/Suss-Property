@@ -170,15 +170,16 @@
 
 
     <TextView
-        android:id="@+id/textViewOptions"
+        android:id="@+id/popUpOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_8942"
         android:gravity="end"
+        android:visibility="gone"
         android:layout_below="@id/houseAboutDescription"
         android:layout_toRightOf="@id/whatsapp"
         android:layout_alignParentRight="true"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textAppearance="?android:textAppearanceLarge"/>
 
 
 </RelativeLayout>
