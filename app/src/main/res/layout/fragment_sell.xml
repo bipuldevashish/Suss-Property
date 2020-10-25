@@ -180,7 +180,7 @@
                         android:id="@+id/buttonSaveandContinue"
                         android:textColor="#FFFFFF"
                         android:background="@color/colorAccent"
-                        android:text="@string/save_and_continue" />7
+                        android:text="@string/save_and_continue" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
