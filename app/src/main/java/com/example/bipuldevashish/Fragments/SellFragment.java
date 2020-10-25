@@ -44,7 +44,7 @@ public class SellFragment extends Fragment {
     Spinner spinnerFlatLayout, spinnerType, spinnerFacing;
     String spinnerFlatLayoutResult, spinnerTypeResult, spinnerFacingResult;
     Button saveAndContinue, buttonAttachment;
-    EditText editPlotArea, editRate, editDescription, editAddress;
+    EditText editPlotArea, editRate, editDescription, editAddress,editWaNumber;
     FirebaseDatabase database;
     DatabaseReference reference;
     ArrayList<Uri> imageList = new ArrayList<>();
@@ -78,7 +78,8 @@ public class SellFragment extends Fragment {
         editAddress = rootView.findViewById(R.id.edText_address);
         editDescription = rootView.findViewById(R.id.edText_description);
         editRate = rootView.findViewById(R.id.edText_rate);
-
+        editWaNumber = rootView.findViewById(R.id.edText_whatsappNumber);
+;
         // firebase linkage
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("Postdetails");
@@ -215,7 +216,7 @@ public class SellFragment extends Fragment {
     }
 
 
-    private void uploadImage(final String rate, final String plotArea, final String address, final String description) {
+    private void uploadImage(final String rate, final String plotArea, final String address, final String description,final String whatsapp) {
 
         Log.d(TAG, "Entering uploadImage()");
 
@@ -236,7 +237,7 @@ public class SellFragment extends Fragment {
                             String url = String.valueOf(uri);
                             propertyImageArray.add(url);
                             if (propertyImageArray.size() == 5) {
-                                uploadData(rate, plotArea, address, description);
+                                uploadData(rate, plotArea, address, description,whatsapp);
                             }
                             Log.d(TAG, "value of propertyImageArray after uploading " + propertyImageArray);
 
@@ -255,6 +256,7 @@ public class SellFragment extends Fragment {
         String address = editAddress.getText().toString().trim();
         String plotArea = editPlotArea.getText().toString().trim();
         String description = editDescription.getText().toString().trim();
+        String whatsapp = editWaNumber.getText().toString().trim();
 
 
         if (spinnerTypeResult.isEmpty() || spinnerTypeResult.equals("Select Property Type")) {
@@ -269,6 +271,8 @@ public class SellFragment extends Fragment {
             Toast.makeText(getContext(), "Please Enter Rate", Toast.LENGTH_SHORT).show();
         } else if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
+        } else if (whatsapp.isEmpty()) {
+            Toast.makeText(getContext(), "Please Enter Whatsapp Number for better reach", Toast.LENGTH_SHORT).show();
         } else if (address.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
         } else if (imageList.isEmpty()) {
@@ -280,12 +284,12 @@ public class SellFragment extends Fragment {
             progressDialog.setMessage("While We Save Your Data");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            uploadImage(rate, address, plotArea, description);
+            uploadImage(rate, address, plotArea, description,whatsapp);
         }
 
     }
 
-    private void uploadData(String rate, String address, String plotArea, String description) {
+    private void uploadData(String rate, String address, String plotArea, String description, String whatsapp) {
         String sellerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Log.d(TAG, "sellerID = " + sellerID);
 
@@ -300,6 +304,7 @@ public class SellFragment extends Fragment {
         UserNewsDb.put("address", address);
         UserNewsDb.put("description", description);
         UserNewsDb.put("sellerID", sellerID);
+        UserNewsDb.put("WaNumber",whatsapp);
 
         for (int i = 0; i < 5; i++) {
             String imageulr = propertyImageArray.get(i);

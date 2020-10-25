@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +27,11 @@ import com.example.bipuldevashish.Models.SellModel;
 import com.example.bipuldevashish.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -50,7 +55,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
         holder.houseBHK.setText(model.getBhk() + " |  ");
-        holder.housePlot.setText(model.getArea());
+        holder.housePlot.setText(model.getArea() + "sq.Ft");
         holder.houseFace.setText(model.getFacing());
         holder.houseAboutDesc.setText(model.getDescription());
         holder.housePrice.setText("$ " + model.getRate());
@@ -60,12 +65,15 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             public void onClick(View view) {
 
                 String key = getRef(position).getKey();
-                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("PostKey", key);
-                editor.apply();
 
-                mcontext.startActivity(new Intent(mcontext, Message.class));
+//                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPref.edit();
+//                editor.putString("PostKey", key);
+//                editor.apply();
+                  fetchSellerNumber(key);
+
+
+
 
             }
         });
@@ -102,6 +110,26 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                 });
                 //displaying the popup
                 popup.show();
+            }
+        });
+    }
+
+    private void fetchSellerNumber(String key) {
+
+        DatabaseReference sellNumberRef = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(key);
+
+        sellNumberRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String waNumber = (String) snapshot.child("WaNumber").getValue();
+                Toast.makeText(mcontext, waNumber, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -147,7 +175,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         TextView housePrice;
         TextView houseAboutDesc;
         TextView buttonViewOptions;
-        LinearLayout contact;
+        ImageView contact;
 
 
 
@@ -163,7 +191,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             housePrice = itemView.findViewById(R.id.housePrice);
             houseAboutDesc = itemView.findViewById(R.id.houseAboutDescription);
             buttonViewOptions = itemView.findViewById(R.id.textViewOptions);
-            contact = itemView.findViewById(R.id.linearLayoutContact);
+            contact = itemView.findViewById(R.id.whatsapp);
         }
     }
 }
