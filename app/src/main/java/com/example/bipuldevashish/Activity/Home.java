@@ -81,7 +81,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-    }
+}
 
     private void signout() {
         FirebaseAuth mAUTH = FirebaseAuth.getInstance();
