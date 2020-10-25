@@ -46,7 +46,6 @@ public class EditPostFragment extends Fragment {
     DatabaseReference reference;
     ArrayList<Uri> imageList = new ArrayList<>();
     private ArrayList<String> propertyImageArray = new ArrayList<>();
-    ProgressDialog progressDialog;
     final String TAG = "EditPostFragment";
     StorageReference storageReference;
     String value;
@@ -78,7 +77,7 @@ public class EditPostFragment extends Fragment {
 
         //shared preference
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("post", Context.MODE_PRIVATE);
-        value = sharedPreferences.getString("PostKey", "");
+        value = sharedPreferences.getString("newKey", "");
 
 
         // firebase linkage
@@ -189,7 +188,6 @@ public class EditPostFragment extends Fragment {
 
                             setEditFragment(rate, address, description, area, bhk, type, facing);
 
-                            progressDialog.dismiss();
 
                         } else {
 

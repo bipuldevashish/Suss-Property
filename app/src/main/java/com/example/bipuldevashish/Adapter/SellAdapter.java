@@ -73,6 +73,10 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         holder.buttonViewOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("newKey", getRef(position).getKey());
+                editor.apply();
                 //creating a popup menu
                 PopupMenu popup = new PopupMenu(mcontext, holder.buttonViewOptions);
                 //inflating menu from xml resource
