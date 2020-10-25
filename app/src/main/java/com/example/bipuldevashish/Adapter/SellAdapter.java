@@ -3,6 +3,7 @@ package com.example.bipuldevashish.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,12 +51,12 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
 
     @Override
-    protected void onBindViewHolder(@NonNull final SellViewHolder holder, final int position, @NonNull SellModel model) {
+    protected void onBindViewHolder(@NonNull final SellViewHolder holder, final int position, @NonNull final SellModel model) {
 
         holder.houseType.setText(model.getType());
         holder.houseAddress.setText(model.getAddress());
         holder.houseBHK.setText(model.getBhk() + " |  ");
-        holder.housePlot.setText(model.getArea() + "sq.Ft");
+        holder.housePlot.setText(model.getArea() + " sq.Ft");
         holder.houseFace.setText(model.getFacing());
         holder.houseAboutDesc.setText(model.getDescription());
         holder.housePrice.setText("$ " + model.getRate());
@@ -66,11 +67,13 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
                 String key = getRef(position).getKey();
 
+
+
 //                SharedPreferences sharedPref = mcontext.getSharedPreferences("post", MODE_PRIVATE);
 //                SharedPreferences.Editor editor = sharedPref.edit();
 //                editor.putString("PostKey", key);
 //                editor.apply();
-                  fetchSellerNumber(key);
+                  fetchSellerNumber(key,model);
 
 
 
@@ -114,7 +117,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         });
     }
 
-    private void fetchSellerNumber(String key) {
+    private void fetchSellerNumber(String key, final SellModel model) {
 
         DatabaseReference sellNumberRef = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(key);
 
@@ -122,8 +125,14 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String waNumber = (String) snapshot.child("WaNumber").getValue();
-                Toast.makeText(mcontext, waNumber, Toast.LENGTH_SHORT).show();
+
+
+                String bhk = model.getBhk();
+                String type = model.getType();
+                String address = model.getAddress();
+
+
+                sendMessageWhatsapp(bhk,type,address);
 
             }
 
@@ -132,6 +141,19 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
 
             }
         });
+    }
+
+    private void sendMessageWhatsapp(String bhk, String type, String address) {
+
+        //NOTE : please use with country code first 2digits without plus signed
+        try {
+            String mobile = "+918235023944";
+            String msg = "Hello, I just saw your post on Suss Property App and I am interested.Your property at "+ address +" with "+ bhk;
+
+            mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + mobile + "&text=" + msg)));
+        }catch (Exception e){
+            Toast.makeText(mcontext, "Install Whatsapp", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadFragment(Fragment fragment) {

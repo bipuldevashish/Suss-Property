@@ -114,7 +114,7 @@ public class Register extends AppCompatActivity {
 
     private void authenticate(final String user_name, final String user_email, final String user_mobile, final String user_password, final String user_image) {
 
-        firebaseAuth.createUserWithEmailAndPassword(user_mobile + "@tradee.com", user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(user_mobile + "@trader.com", user_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
