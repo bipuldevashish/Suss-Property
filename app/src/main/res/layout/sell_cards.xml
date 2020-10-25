@@ -161,28 +161,12 @@
         android:layout_marginBottom="10dp"
         android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:id="@+id/linearLayoutContact"
-        android:background="@drawable/contact_btn_bg"
-        android:layout_below="@id/houseAboutDescription"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:text="Contact Agent" />
-
-    </LinearLayout>
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_whatsapp"
+        android:id="@+id/whatsapp"
+        android:layout_below="@+id/houseAboutDescription"/>
 
 
     <TextView
@@ -192,7 +176,7 @@
         android:text="@string/_8942"
         android:gravity="end"
         android:layout_below="@id/houseAboutDescription"
-        android:layout_toRightOf="@id/linearLayoutContact"
+        android:layout_toRightOf="@id/whatsapp"
         android:layout_alignParentRight="true"
         android:textAppearance="?android:textAppearanceLarge" />
 

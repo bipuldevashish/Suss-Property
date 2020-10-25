@@ -140,6 +140,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:hint="@string/wa_number"
+                        android:paddingTop="5dp"
+                        android:background="@color/lightGrey">
+
+                        <EditText
+                            android:id="@+id/edText_whatsappNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:textSize="18sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:hint="@string/address"
                         android:paddingTop="5dp"
                         android:background="@color/lightGrey">

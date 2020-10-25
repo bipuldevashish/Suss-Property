@@ -10,8 +10,15 @@ public class SellModel {
     private String rate;
     private String type;
     private String sellerId;
+    private String WaNumber;
 
+    public String getWaNumber() {
+        return WaNumber;
+    }
 
+    public void setWaNumber(String waNumber) {
+        WaNumber = waNumber;
+    }
 
     public SellModel() {
     }
