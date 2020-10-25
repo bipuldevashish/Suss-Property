@@ -50,7 +50,6 @@ public class EditPostFragment extends Fragment {
     EditText editTextArea, editTextRate, editTextDescription, editTextAddress;
     FirebaseDatabase database;
     DatabaseReference reference;
-    ArrayList<Uri> imageList = new ArrayList<>();
     private ArrayList<String> propertyImageArray = new ArrayList<>();
     final String TAG = "EditPostFragment";
     StorageReference storageReference;
@@ -199,9 +198,6 @@ public class EditPostFragment extends Fragment {
             Toast.makeText(getContext(), "Please Enter Detailed Description", Toast.LENGTH_SHORT).show();
         } else if (address.isEmpty()) {
             Toast.makeText(getContext(), "Please Enter Full Address", Toast.LENGTH_SHORT).show();
-        } else if (imageList.isEmpty()) {
-            Log.d(TAG, "value of image list = " + imageList.size());
-            Toast.makeText(getContext(), "Please select exactly five images", Toast.LENGTH_SHORT).show();
         } else {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setTitle("Updating Post");
@@ -215,27 +211,20 @@ public class EditPostFragment extends Fragment {
 
     private void saveModifiedResult(String rate, String address, String area, String desc) {
 
+        reference.child("address").setValue(address);
+        reference.child("area").setValue(area);
+        reference.child("bhk").setValue(spinnerLayoutResult);
+        reference.child("description").setValue(desc);
+        reference.child("facing").setValue(spinnerFaceResult);
+        reference.child("rate").setValue(rate);
+        reference.child("type").setValue(spinnerTResult);
 
-        HashMap<String, String> hMap = new HashMap<>();
-        hMap.put("address", address);
-        hMap.put("area", area);
-        hMap.put("bhk", spinnerLayoutResult);
-        hMap.put("description", desc);
-        hMap.put("facing", spinnerFaceResult);
-        hMap.put("rate", rate);
-        hMap.put("type", spinnerTResult);
+        progressDialog.dismiss();
+        Intent goHome = new Intent(getActivity(), Home.class);
+        goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(goHome);
 
-        reference.setValue(hMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    progressDialog.dismiss();
-                    Intent goHome = new Intent(getActivity(), Home.class);
-                    goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(goHome);
-                }
-            }
-        });
+
     }
 
     private void setPreviousData() {
