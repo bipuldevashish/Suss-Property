@@ -17,11 +17,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -58,5 +58,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // Slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
-  
+
+
+}
 }
