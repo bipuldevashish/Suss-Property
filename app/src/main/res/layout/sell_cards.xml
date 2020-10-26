@@ -26,7 +26,7 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/houseImage"
         app:auto_cycle="true"
-        app:corner_radius="5"
+        app:corner_radius="20"
         app:period="2000"/>
 
 
@@ -195,9 +195,6 @@
 
 
     </LinearLayout>
-
-
-
 
 </RelativeLayout>
 
