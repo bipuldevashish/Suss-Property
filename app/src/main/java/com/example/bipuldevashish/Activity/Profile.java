@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                LinearLayout linearLayoutProfileDetails = findViewById(R.id.profileDetailForm);
+                RelativeLayout linearLayoutProfileDetails = findViewById(R.id.profileDetailForm);
                 LinearLayout linearLayoutUpdateProfile = findViewById(R.id.updateProfileForm);
                 linearLayoutProfileDetails.setVisibility(View.GONE);
                 linearLayoutUpdateProfile.setVisibility(View.VISIBLE);
@@ -89,7 +90,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateProfile();
-                LinearLayout linearLayoutProfileDetails = findViewById(R.id.profileDetailForm);
+                RelativeLayout linearLayoutProfileDetails = findViewById(R.id.profileDetailForm);
                 LinearLayout linearLayoutUpdateProfile = findViewById(R.id.updateProfileForm);
                 linearLayoutProfileDetails.setVisibility(View.VISIBLE);
                 linearLayoutUpdateProfile.setVisibility(View.GONE);
@@ -152,6 +153,7 @@ public class Profile extends AppCompatActivity {
                             Toast.makeText(Profile.this,
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
 
                         }
                     }

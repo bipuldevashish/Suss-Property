@@ -188,6 +188,7 @@
             android:layout_height="wrap_content"
             android:text="@string/_8942"
             android:gravity="end"
+            android:paddingLeft="10dp"
             android:visibility="gone"
             android:layout_gravity="center"
             android:layout_marginLeft="12dp"

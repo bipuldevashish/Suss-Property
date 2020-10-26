@@ -108,7 +108,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
                             case R.id.delete_post:
                                 //handle delete post click
                                 //deletepost() is working properly
-                                deletePost(postKey);
+                                deletePost(position,postKey);
                                 break;
                         }
                         return false;
@@ -128,19 +128,28 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                String one = (String) snapshot.child("image0").getValue();
-                String two = (String) snapshot.child("image1").getValue();
-                String three = (String) snapshot.child("image2").getValue();
-                String four = (String) snapshot.child("image3").getValue();
-                String five = (String) snapshot.child("image4").getValue();
+                if (snapshot.hasChildren())
+                {
+                    String one = (String) snapshot.child("image0").getValue();
+                    String two = (String) snapshot.child("image1").getValue();
+                    String three = (String) snapshot.child("image2").getValue();
+                    String four = (String) snapshot.child("image3").getValue();
+                    String five = (String) snapshot.child("image4").getValue();
 
-                List<SlideModel> slideModels = new ArrayList<>();
-                slideModels.add(new SlideModel(one,"1"));
-                slideModels.add(new SlideModel(two,"2"));
-                slideModels.add(new SlideModel(three,"3"));
-                slideModels.add(new SlideModel(four,"4"));
-                slideModels.add(new SlideModel(five,"5"));
-                holder.slider.setImageList(slideModels,true);
+                    List<SlideModel> slideModels = new ArrayList<>();
+
+                    slideModels.add(new SlideModel(one,"1"));
+                    slideModels.add(new SlideModel(two,"2"));
+                    slideModels.add(new SlideModel(three,"3"));
+                    slideModels.add(new SlideModel(four,"4"));
+                    slideModels.add(new SlideModel(five,"5"));
+                    holder.slider.setImageList(slideModels,true);
+
+                }
+
+
+
+
 
 
 
@@ -192,7 +201,7 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         String address = model.getAddress();
 
         try {
-            String mobile = "+919504901900";
+            String mobile = "+6593256405";
             String msg = "Hello, I just saw your post on Suss Property App and I am interested.Your property at "+ address +" with "+ bhk;
 
             mcontext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://api.whatsapp.com/send?phone=" + mobile + "&text=" + msg)));
@@ -212,12 +221,13 @@ public class SellAdapter extends FirebaseRecyclerAdapter<SellModel,SellAdapter.S
         transaction.commit();
     }
 
-    private void deletePost(String postKey) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(postKey);
+    private void deletePost(int position, String postKey) {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Postdetails").child(getRef(position).getKey());
         ref.removeValue();
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(postKey);
-        storageReference.delete();
+//        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Property Images").child(postKey);
+//        storageReference.delete();
     }
 
 
