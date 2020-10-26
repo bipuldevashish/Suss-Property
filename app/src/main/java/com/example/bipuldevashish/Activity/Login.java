@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
 
     private void LogIn(String user_email, String user_pass) {
 
-        firebaseAuth.signInWithEmailAndPassword(user_email+"@tradee.com",user_pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(user_email+"@trader.com",user_pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
