@@ -52,11 +52,10 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profileDetailForm"
-        android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:padding="10dp"
@@ -71,22 +70,26 @@
             android:layout_margin="4dp"
             android:id="@+id/profileNameCard">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:id="@+id/titleName"
-                android:layout_marginStart="20dp"
-                android:textSize="20sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/userName"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:id="@+id/titleName"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userName"
+                    android:layout_toRightOf="@id/titleName"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="40dp" />
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -94,24 +97,30 @@
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
             app:cardElevation="5dp"
+            android:layout_below="@id/profileNameCard"
             android:layout_margin="4dp"
             android:id="@+id/profileEmailCard">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/email"
-                android:id="@+id/titleEmail"
-                android:layout_marginStart="20dp"
-                android:textSize="20sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/userEmail"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:id="@+id/titleEmail"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/titleEmail"
+                    android:id="@+id/userEmail"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="40dp" />
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
 
@@ -121,25 +130,31 @@
             app:contentPadding="5dp"
             app:cardElevation="5dp"
             android:layout_margin="4dp"
+            android:layout_below="@id/profileEmailCard"
             android:id="@+id/profileNumberCard">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone_number"
-                android:id="@+id/titlePhoneNumber"
-                android:layout_marginStart="20dp"
-                android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/userPhoneNumber"
-                android:textSize="20sp"
-                android:layout_marginStart="20dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone_number"
+                    android:id="@+id/titlePhoneNumber"
+                    android:layout_marginStart="20dp"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/titlePhoneNumber"
+                    android:id="@+id/userPhoneNumber"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="40dp" />
+            </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
 
         <Button
             android:layout_width="match_parent"
@@ -147,11 +162,12 @@
             android:text="@string/edit_profile"
             android:id="@+id/editProfileButton"
             android:minHeight="45dp"
+            android:layout_below="@id/profileNumberCard"
             android:layout_marginTop="40dp"
             android:textSize="18sp"
             android:textColor="#fff"
             android:background="@color/colorAccent" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout

@@ -79,35 +79,33 @@ public class Register extends AppCompatActivity {
 
         if (user_name.isEmpty())
         {
-            Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show();
+            name.setError("Please Enter Name");
         }
         if (user_email.isEmpty())
         {
-            Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
+            email.setError("Please Enter Email address");
         }
-        if (user_mobile.isEmpty())
-        {
-            Toast.makeText(this, "Please Enter Mobile", Toast.LENGTH_SHORT).show();
+        if (user_mobile.isEmpty()) {
+            mobile.setError("Please Enter Mobile Number");
+            ;
         }
-        if (user_password.isEmpty())
-        {
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+        if (user_password.isEmpty()) {
+            password.setError("Please Enter Password");
         }
-        if (user_cpassword.isEmpty())
-        {
-            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+        if (user_cpassword.isEmpty()) {
+            confirmPass.setError("Please Confirm Your Password");
         }
-        else if (user_password.equals(user_cpassword))
-        {
+        if (user_password.length() < 6) {
+            password.setError("Password too short");
+        } else if (user_password.equals(user_cpassword)) {
             progressDialog.setTitle("Registering User");
             progressDialog.setMessage("Please wait while We Create Your Account");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
             authenticate(user_name, user_email, user_mobile, user_password, user_image);
-        }
-        else {
+        } else {
 
-            Toast.makeText(this, "Password not same", Toast.LENGTH_SHORT).show();
+            confirmPass.setError("Password not same");
         }
 
     }

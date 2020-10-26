@@ -2,7 +2,7 @@
     <string name="app_name">SUSS</string>
     <string name="name">NAME</string>
     <string name="email">Email</string>
-    <string name="phone_number">Phone Number</string>
+    <string name="phone_number">Contact</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="full_name">Full Name</string>
     <!-- TODO: Remove or change this placeholder text -->
