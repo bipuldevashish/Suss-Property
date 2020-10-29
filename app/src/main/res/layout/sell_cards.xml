@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sale"
+                android:text="@string/sale"
                 android:id="@+id/houseType"
                 android:fontFamily="@font/montserrat_bold"
                 android:layout_marginBottom="10dp"
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="@string/address"
                 android:id="@+id/houseAddress"
                 android:layout_marginBottom="10dp"
                 android:textSize="16sp"/>
@@ -67,7 +67,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="House Type"
+                android:text="@string/house_type"
                 android:textSize="16sp"/>
 
             <LinearLayout
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="4BHK  |"
+                    android:text="@string/_4bhk"
                     android:id="@+id/houseBHK"
                     android:textColor="#000"
                     android:textSize="16sp"/>
@@ -87,7 +87,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="  1200 sq.ft"
+                    android:text="@string/_1200_sq_ft"
                     android:id="@+id/housePlot"
                     android:textSize="16sp"
                     android:textColor="#000"/>
@@ -97,14 +97,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="House Face"
+                android:text="@string/house_face"
                 android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/houseFace"
-                android:text="North"
+                android:text="@string/north"
                 android:textSize="16sp"
                 android:textColor="#000"/>
 
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="500$"
+                android:text="@string/_500"
                 android:layout_gravity="center"
                 android:id="@+id/housePrice"
                 android:fontFamily="@font/montserrat_bold"
@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/houseDetails"
         android:id="@+id/aboutHead"
-        android:text="About"
+        android:text="@string/about"
         android:textSize="16sp"
         android:textColor="#000"
         android:fontFamily="@font/montserrat_bold"/>

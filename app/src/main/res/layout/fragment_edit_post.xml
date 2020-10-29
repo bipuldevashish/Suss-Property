@@ -81,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Facing"
+                        android:text="@string/facing"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -110,7 +110,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@color/lightGrey"
                         android:paddingLeft="8dp"
-                        android:hint="Enter the area in sqft"
+                        android:hint="@string/enter_the_area_in_sqft"
                         android:inputType="numberDecimal"
                         android:textSize="18sp" />
 
@@ -127,7 +127,7 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="6dp"
                         android:textSize="18sp"
-                        android:hint="Enter the price"
+                        android:hint="@string/enter_the_price"
                         android:background="@color/lightGrey"
                         android:inputType="number"
                         android:paddingLeft="8dp" />
@@ -148,21 +148,21 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="8dp"
                         android:inputType="textCapSentences"
-                        android:hint="Tell us more about your property"
+                        android:hint="@string/tell_us_more_about_your_property"
                         android:textSize="16sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Address"
+                        android:text="@string/address"
                         android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/edText_addressEditPost"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
-                        android:hint="Address of the property "
+                        android:hint="@string/address_of_the_property"
                         android:layout_marginTop="6dp"
                         android:background="@color/lightGrey"
                         android:inputType="textCapSentences"
@@ -177,7 +177,7 @@
                         android:id="@+id/saveDetails"
                         android:textColor="#FFFFFF"
                         android:background="@color/colorAccent"
-                        android:text="save details" />
+                        android:text="@string/save_details" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

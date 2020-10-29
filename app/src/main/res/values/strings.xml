@@ -29,4 +29,26 @@
     <string name="home">Home</string>
     <string name="address">Address</string>
     <string name="wa_number">Whatsapp Number</string>
+    <string name="sale">Sale</string>
+    <string name="_500">500$</string>
+    <string name="address">Address</string>
+    <string name="house_type">House Type</string>
+    <string name="_4bhk">4BHK |</string>
+    <string name="_1200_sq_ft">1200 sq.ft</string>
+    <string name="north">North</string>
+    <string name="house_face">House Face</string>
+    <string name="about">About</string>
+    <string name="facing">Facing</string>
+    <string name="plot_area_in_sqft">Plot Area in sqft</string>
+    <string name="rate">Rate</string>
+    <string name="select_5_pics_of_the_property">Select 5 pics of the property</string>
+    <string name="attach">Attach</string>
+    <string name="facing">Facing</string>
+    <string name="enter_the_area_in_sqft">Enter the area in sqft</string>
+    <string name="enter_the_price">Enter the price</string>
+    <string name="tell_us_more_about_your_property">Tell us more about your property</string>
+    <string name="address_of_the_property">Address of the property</string>
+    <string name="save_details">save details</string>
+    <string name="address">Address</string>
+    <string name="whatsapp">Whatsapp</string>
 </resources>

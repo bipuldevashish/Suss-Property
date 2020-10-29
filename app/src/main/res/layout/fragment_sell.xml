@@ -76,7 +76,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Facing"
+                        android:text="@string/facing"
                         android:textSize="14sp" />
 
                     <LinearLayout
@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:hint="Plot Area in sqft"
+                        android:hint="@string/plot_area_in_sqft"
                         android:paddingTop="5dp"
                         android:background="@color/lightGrey">
 
@@ -109,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:hint="Rate"
+                        android:hint="@string/rate"
                         android:paddingTop="5dp"
                         android:background="@color/lightGrey">
 
@@ -173,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Select 5 pics of the property"
+                        android:text="@string/select_5_pics_of_the_property"
                         android:textSize="14sp" />
 
                     <Button
@@ -184,7 +184,7 @@
                         android:drawablePadding="15dp"
                         android:background="@color/lightGrey"
                         android:padding="15dp"
-                        android:hint="Attach"
+                        android:hint="@string/attach"
                         android:clickable="true"
                         app:drawableLeftCompat="@drawable/ic_baseline_attach_file_24" />
 
