@@ -9,10 +9,6 @@ Login Screen
 
 Sell Property
 
-<img src="https://github.com/bipuldevashish/Scenario/blob/master/screenshots/Screenshot_20210211_021642.png" height="300">
-
-Adobe XD
-
 <img src="https://github.com/bipuldevashish/Suss-Property/blob/master/screenshots/Screenshot_20210127_162039.png" height="300">
 
 
